@@ -1,31 +1,32 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import EventList from './components/EventList';
-import AddEvent from './components/AddEvent';
-import EditEvent from './components/EditEvent';
-import UserList from './components/UserList';
-import AddUser from './components/AddUser';
-import EditUser from './components/EditUser';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import UserSignup from "./components/auth/UserSignup";
+import UserLogin from "./components/auth/UserLogin";
+import UserDashboard from "./components/dashboard/UserDashboard";
+import "./App.css";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Default route */}
-        <Route path="/" element={<Navigate to="/users" />} />
+      <div className="app-container">
+        {/* 🌐 Navigation Bar */}
+        <nav className="navbar">
+          <div className="nav-logo">🎉 EventMate</div>
+          <div className="nav-links">
+            <Link to="/user-signup">Signup</Link>
+            <Link to="/user-login">Login</Link>
+            <Link to="/user-dashboard">Dashboard</Link>
+          </div>
+        </nav>
 
-        {/* User Routes */}
-        <Route path="/users" element={<UserList />} />
-        <Route path="/add-user" element={<AddUser />} />
-        <Route path="/edit-user/:id" element={<EditUser />} />
-
-        {/* Event Routes */}
-        <Route path="/events" element={<EventList />} />
-        <Route path="/add-event" element={<AddEvent />} />
-        <Route path="/edit-event/:id" element={<EditEvent />} />
-
-        {/* Catch all - optional */}
-        <Route path="*" element={<h2>Page Not Found</h2>} />
-      </Routes>
+        {/* 🚦 Routes */}
+        <Routes>
+          <Route path="/" element={<UserSignup />} />
+          <Route path="/user-signup" element={<UserSignup />} />
+          <Route path="/user-login" element={<UserLogin />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

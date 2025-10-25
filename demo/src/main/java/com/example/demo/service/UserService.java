@@ -25,6 +25,7 @@ public class UserService {
 
     // Create user
     public UserEntity createUser(UserEntity user) {
+        // Save password as well
         return userRepository.save(user);
     }
 
@@ -35,6 +36,7 @@ public class UserService {
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setPhone(user.getPhone());
+            existingUser.setPassword(user.getPassword()); // <-- Set password
             return userRepository.save(existingUser);
         }
         return null;
