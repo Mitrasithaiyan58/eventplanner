@@ -11,18 +11,26 @@ public class UserEntity {
     private Long id;
 
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String phone;
 
+    @Column(nullable = false)
+    private String password;  // New field
+
+    // Constructors
     public UserEntity() {}
 
-    public UserEntity(String name, String email, String phone) {
+    public UserEntity(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.password = password;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -34,4 +42,7 @@ public class UserEntity {
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }
