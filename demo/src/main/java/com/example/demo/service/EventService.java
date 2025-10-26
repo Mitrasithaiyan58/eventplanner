@@ -9,6 +9,7 @@ import com.example.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,18 +24,35 @@ public class EventService {
     @Autowired
     private UserRepository userRepository;
 
-    // Get all events
+    // -----------------------
+    // Helper method to calculate status dynamically
+    private String calculateStatus(LocalDateTime eventDateTime) {
+        if (eventDateTime == null) return "Planned";
+
+        LocalDateTime now = LocalDateTime.now();
+
+        if (eventDateTime.isBefore(now)) return "Completed"; // Past event
+        if (eventDateTime.isEqual(now)) return "Ongoing";   // Happening now
+        return "Planned";                                  // Future event
+    }
+    // -----------------------
+
+    // Get all events with dynamic status
     public List<EventEntity> getAllEvents() {
-        return eventRepository.findAll();
+        List<EventEntity> events = eventRepository.findAll();
+        events.forEach(event -> event.setStatus(calculateStatus(event.getEventDateTime())));
+        return events;
     }
 
-    // Get event by ID
+    // Get event by ID with dynamic status
     public EventEntity getEventById(Long id) {
-        return eventRepository.findById(id)
+        EventEntity event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Event not found with id: " + id));
+        event.setStatus(calculateStatus(event.getEventDateTime()));
+        return event;
     }
 
-    // Create event (either Admin or User organizer)
+    // Create event
     public EventEntity createEvent(EventEntity event) {
         if (event.getAdminOrganizer() != null && event.getUserOrganizer() != null) {
             throw new IllegalArgumentException("Event cannot have both Admin and User organizers!");
@@ -52,6 +70,9 @@ public class EventService {
             event.setUserOrganizer(user);
         }
 
+        // Automatically calculate status
+        event.setStatus(calculateStatus(event.getEventDateTime()));
+
         return eventRepository.save(event);
     }
 
@@ -65,7 +86,9 @@ public class EventService {
         existingEvent.setLocation(updatedEvent.getLocation());
         existingEvent.setEventDateTime(updatedEvent.getEventDateTime());
 
-        // Update organizer logic
+        // Automatically recalculate status
+        existingEvent.setStatus(calculateStatus(updatedEvent.getEventDateTime()));
+
         if (updatedEvent.getAdminOrganizer() != null) {
             AdminEntity admin = adminRepository.findById(updatedEvent.getAdminOrganizer().getId())
                     .orElseThrow(() -> new RuntimeException("Admin not found"));
@@ -87,5 +110,12 @@ public class EventService {
             throw new RuntimeException("Event not found with id: " + id);
         }
         eventRepository.deleteById(id);
+    }
+
+    // Get events created by a specific user
+    public List<EventEntity> getEventsByUserId(Long userId) {
+        List<EventEntity> events = eventRepository.findByUserOrganizerId(userId);
+        events.forEach(event -> event.setStatus(calculateStatus(event.getEventDateTime())));
+        return events;
     }
 }
