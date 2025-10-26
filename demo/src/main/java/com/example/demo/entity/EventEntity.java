@@ -18,6 +18,9 @@ public class EventEntity {
     private String location;
     private LocalDateTime eventDateTime;
 
+    @Column(nullable = false)
+    private String status = "Planned"; // default status
+
     // Organizer can be either Admin or User
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = true)
@@ -32,13 +35,15 @@ public class EventEntity {
     public EventEntity(String name, String description, String location,
                        LocalDateTime eventDateTime,
                        AdminEntity adminOrganizer,
-                       UserEntity userOrganizer) {
+                       UserEntity userOrganizer,
+                       String status) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.eventDateTime = eventDateTime;
         this.adminOrganizer = adminOrganizer;
         this.userOrganizer = userOrganizer;
+        this.status = status;
     }
 
     // Getters & Setters
@@ -56,6 +61,9 @@ public class EventEntity {
 
     public LocalDateTime getEventDateTime() { return eventDateTime; }
     public void setEventDateTime(LocalDateTime eventDateTime) { this.eventDateTime = eventDateTime; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     public AdminEntity getAdminOrganizer() { return adminOrganizer; }
     public void setAdminOrganizer(AdminEntity adminOrganizer) { this.adminOrganizer = adminOrganizer; }

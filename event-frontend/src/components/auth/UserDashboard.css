@@ -1,0 +1,187 @@
+.dashboard-wrapper {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background-color: #f7f7f7; /* light neutral background */
+  color: #333;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.greeting {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #2C3E50; /* Dark header */
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+}
+
+.nav-buttons button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #b570df; /* Soft blue */
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-buttons button:hover {
+  background-color: #3F5CCF; /* Darker blue on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Only Logout button is red */
+.logout-btn {
+  background-color: #FF6B6B;
+}
+
+.logout-btn:hover {
+  background-color: #E74C3C; /* Darker red on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+/* Dashboard content */
+.dashboard-content {
+  padding: 40px 50px;
+}
+
+.dashboard-content h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* Stat cards */
+.dashboard-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  flex: 1 1 150px;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat-card i {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+/* Recent Events */
+.recent-events {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.event-card-small {
+  flex: 0 0 200px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.event-card-small h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.event-card-small p {
+  font-size: 0.85rem;
+  margin-bottom: 3px;
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.status-planned { background-color: #4CAF50; }
+.status-completed { background-color: #9E9E9E; }
+.status-total { background-color: #FFC107; }
+
+
+.dashboard-wrapper {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background-image: url('https://i.pinimg.com/736x/84/db/0c/84db0c0fb3084600350985843a47df19.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  color: #333;
+}
+
+/* Dashboard main heading */
+.dashboard-content h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ffffff; /* white color */
+}
+
+/* Recent Events heading */
+.dashboard-content h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #ffffff; /* white color */
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #2C3E50; /* Dark blue-gray for header */
+  color: #ffffff; /* White text inside header */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.greeting {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff; /* White for greeting text */
+}
+

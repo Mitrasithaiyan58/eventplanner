@@ -1,36 +1,115 @@
-.app-container {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #f8f9fd, #e4ecff);
-  min-height: 100vh;
+/* 🎨 General App Theme */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #d8c7ff, #f6d5f7);
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-/* 🌐 Navigation Bar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #0056ff;
-  padding: 15px 30px;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 86, 255, 0.2);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* Dashboard */
+.dashboard-container {
+  text-align: center;
+  margin-top: 80px;
 }
 
-.nav-logo {
-  font-size: 1.5rem;
+.welcome-text {
+  font-size: 28px;
   font-weight: 600;
+  color: #5a2ea6;
 }
 
-.nav-links a {
+.sub-text {
+  font-size: 18px;
+  color: #555;
+}
+
+.dashboard-buttons {
+  margin-top: 40px;
+}
+
+.main-btn {
+  background-color: #7b5cf4;
   color: white;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: 500;
-  transition: color 0.3s;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.main-btn:hover {
+  background-color: #a283ff;
 }
 
-.nav-links a:hover {
-  color: #d0e3ff;
+/* Forms */
+.form-container {
+  width: 400px;
+  background: white;
+  padding: 30px;
+  margin: 80px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.event-form input,
+.profile-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background-color: #5a2ea6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+.submit-btn:hover {
+  background-color: #7b5cf4;
+}
+
+/* Events Table */
+.events-container {
+  padding: 40px;
+  text-align: center;
+}
+
+.events-table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 90%;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.events-table th,
+.events-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.events-table th {
+  background-color: #5a2ea6;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background-color: #ff8b8b;
 }

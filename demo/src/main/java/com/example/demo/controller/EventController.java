@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/events")
-@CrossOrigin(origins = "*") // Allow frontend access
+@RequestMapping("/events")
+@CrossOrigin(origins = "*")
 public class EventController {
 
     @Autowired
@@ -27,11 +27,15 @@ public class EventController {
 
     @PostMapping
     public EventEntity createEvent(@RequestBody EventEntity event) {
+        // Prevent frontend from setting status manually
+        event.setStatus(null);
         return eventService.createEvent(event);
     }
 
     @PutMapping("/{id}")
     public EventEntity updateEvent(@PathVariable Long id, @RequestBody EventEntity event) {
+        // Prevent frontend from setting status manually
+        event.setStatus(null);
         return eventService.updateEvent(id, event);
     }
 
@@ -39,5 +43,10 @@ public class EventController {
     public String deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return "Event deleted successfully!";
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<EventEntity> getEventsByUserId(@PathVariable Long userId) {
+        return eventService.getEventsByUserId(userId);
     }
 }

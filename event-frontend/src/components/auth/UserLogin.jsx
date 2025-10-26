@@ -1,41 +1,53 @@
-import React, { useState } from 'react';
-import api from '../../api';
-import { useNavigate } from 'react-router-dom';
-import './Auth.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../../axiosConfig";
+import "../Auth/Auth.css";
 
-export default function UserLogin() {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+
+const UserLogin = ({ setUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const handleChange = (e) => setCredentials({ ...credentials, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     try {
-      const response = await api.get('/users'); // fetch all users
-      const user = response.data.find(u => u.email === credentials.email && u.password === credentials.password);
-      if (user) {
-        alert('Login successful!');
-        navigate('/user-dashboard'); // Replace with your dashboard route
+      const res = await axios.get(`/users`);
+      const userFound = res.data.find(u => u.email === email && u.password === password);
+      if (userFound) {
+        setUser(userFound);
+        navigate("/user-dashboard");
       } else {
-        alert('Invalid email or password');
+        setError("Invalid email or password");
       }
     } catch (err) {
-      alert('Error: ' + err.message);
+      console.error(err);
+      setError("Login failed. Try again.");
     }
   };
 
   return (
     <div className="auth-container">
       <h2>User Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" value={credentials.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={credentials.password} onChange={handleChange} required />
-        <button type="submit">Login</button>
-      </form>
-      <div className="auth-switch">
-        Don't have an account? <a href="/user-signup">Signup</a>
-      </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
+      <span className="link-text" onClick={() => navigate("/user-signup")}>
+        Don't have an account? Signup
+      </span>
     </div>
   );
-}
+};
+
+export default UserLogin;
