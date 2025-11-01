@@ -1,46 +1,429 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(20, 20, 20, 0.8)),
+    url("https://i.pinimg.com/736x/cd/2c/bf/cd2cbfe88254378f16db2f63920f33d5.jpg")
+      no-repeat center center/cover;
+  overflow: hidden;
+}
+
+/* Floating effect only inside login */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .auth-container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  background-color: #fff;
+  width: 380px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  color: #fff;
+  animation: float 6s ease-in-out infinite;
+  transition: all 0.4s ease;
+}
+
+/* ... keep rest of your stylish CSS here (inputs, button, hover, etc.) */
+
+.auth-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
 }
 
 .auth-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 26px;
+  color: #ffffff;
+  letter-spacing: 1px;
 }
 
 .auth-container input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.auth-container input::placeholder {
+  color: #dcdcdc;
+}
+
+.auth-container input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #00ffb7;
 }
 
 .auth-container button {
   width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  background-color: #4CAF50;
-  color: white;
+  padding: 12px;
+  margin-top: 18px;
+  background: linear-gradient(135deg, #00ffb7, #00c3ff);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .auth-container button:hover {
-  background-color: #45a049;
+  background: linear-gradient(135deg, #00c3ff, #00ffb7);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.6);
 }
 
 .link-text {
   display: block;
-  text-align: center;
-  margin-top: 10px;
-  color: #007bff;
+  margin-top: 20px;
+  color: #00d4ff;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.link-text:hover {
+  color: #00ffb7;
+  text-decoration: underline;
+}
+
+/* Optional glowing border effect */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 440px;
+  border-radius: 20px;
+  background: linear-gradient(45deg, #00ffb7, #00c3ff, #ff00e0, #00ffb7);
+  background-size: 300% 300%;
+  animation: glowing 8s ease infinite;
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.4;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+
+/* --------------------------------------------- */
+/* ✨ SIGNUP PAGE STYLES ✨ */
+/* --------------------------------------------- */
+
+.signup-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(15, 15, 15, 0.8)),
+    url("https://i.pinimg.com/736x/1d/52/33/1d52332e2a77f50343f25798e8bb8656.jpg")
+      no-repeat center center/cover;
+  overflow: hidden;
+}
+
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.signup-container {
+  width: 400px;
+  padding: 40px 35px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-align: center;
+  animation: float 6s ease-in-out infinite;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.signup-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.25);
+}
+
+.signup-container h2 {
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.signup-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.signup-container input::placeholder {
+  color: #ddd;
+}
+
+.signup-container input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px #ff6bd6;
+}
+
+.signup-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 18px;
+  background: linear-gradient(135deg, #ff6bd6, #a96bff);
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-container button:hover {
+  background: linear-gradient(135deg, #a96bff, #ff6bd6);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 107, 214, 0.6);
+}
+
+.link-text {
+  display: block;
+  margin-top: 20px;
+  color: #a8d8ff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.link-text:hover {
+  color: #ffb6f5;
+  text-decoration: underline;
+}
+
+.signup-container::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 460px;
+  border-radius: 20px;
+  background: linear-gradient(45deg, #ff6bd6, #a96bff, #ff6bd6, #a96bff);
+  background-size: 300% 300%;
+  animation: glowing 8s ease infinite;
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.4;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+
+.profile-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(30, 30, 30, 0.8)),
+    url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80")
+      no-repeat center center/cover;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Reuse the beautiful translucent form look */
+.form-container {
+  width: 400px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #fff;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #00e0ff;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 15px;
+}
+
+.form-container input::placeholder {
+  color: #ccc;
+}
+
+.form-container input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #00ffb7;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, #00ffb7, #00c3ff);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-container button:hover {
+  background: linear-gradient(135deg, #00c3ff, #00ffb7);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.6);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.event-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(25, 25, 25, 0.85)),
+    url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80")
+      no-repeat center center/cover;
+  overflow: hidden;
+  position: relative;
+}
+
+.form-container {
+  width: 420px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #fff;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #00e0ff;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 15px;
+}
+
+.form-container input::placeholder {
+  color: #ccc;
+}
+
+.form-container input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #00ffb7;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, #00ffb7, #00c3ff);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-container button:hover {
+  background: linear-gradient(135deg, #00c3ff, #00ffb7);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.6);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

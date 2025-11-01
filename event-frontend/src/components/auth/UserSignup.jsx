@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../axiosConfig";
 import "../Auth/Auth.css";
 
-
 const UserSignup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,17 +23,36 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>User Signup</h2>
-      {message && <p>{message}</p>}
-      <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-      <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-      <input placeholder="Phone" value={phone} onChange={e => setPhone(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-      <button onClick={handleSignup}>Signup</button>
-      <span className="link-text" onClick={() => navigate("/user-login")}>
-        Already have an account? Login
-      </span>
+    <div className="signup-page">
+      <div className="auth-container">
+        <h2>User Signup</h2>
+        {message && <p>{message}</p>}
+        <input
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          placeholder="Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleSignup}>Signup</button>
+        <span className="link-text" onClick={() => navigate("/user-login")}>
+          Already have an account? Login
+        </span>
+      </div>
     </div>
   );
 };

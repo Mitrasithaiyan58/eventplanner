@@ -185,3 +185,19 @@
   color: #ffffff; /* White for greeting text */
 }
 
+
+/* 🌟 AI Suggestions Button Style */
+.ai-btn {
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  color: #2c3e50;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.ai-btn:hover {
+  background: linear-gradient(90deg, #ff758c, #ff7eb3);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
