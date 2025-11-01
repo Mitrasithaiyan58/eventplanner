@@ -27,6 +27,7 @@ const UserLogin = ({ setUser }) => {
   };
 
   return (
+  <div className="login-page">
     <div className="auth-container">
       <h2>User Login</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -47,7 +48,9 @@ const UserLogin = ({ setUser }) => {
         Don't have an account? Signup
       </span>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default UserLogin;

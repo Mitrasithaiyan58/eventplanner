@@ -25,6 +25,7 @@ const UserDashboard = ({ user }) => {
   }, [user]);
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     navigate("/user-login");
   };
 
@@ -38,11 +39,22 @@ const UserDashboard = ({ user }) => {
   return (
     <div className="dashboard-wrapper">
       <header className="dashboard-header">
-        <div className="greeting">Welcome, {user.name} !!</div>
+        <div className="greeting">Welcome, {user.name} 🎉</div>
         <div className="nav-buttons">
           <button onClick={() => navigate("/create-event")}>Create Event</button>
           <button onClick={() => navigate("/my-events")}>My Events</button>
           <button onClick={() => navigate("/user-profile")}>Profile</button>
+
+          {/* 🧠 AI Suggestions Button */}
+          <button onClick={() => navigate("/ai-suggestions")} className="ai-btn">
+            💡 AI Suggestions
+          </button>
+
+          {/* 💾 Saved Vendors Button */}
+          <button onClick={() => navigate("/my-saved-vendors")} className="dashboard-btn">
+           Saved Vendors
+          </button>
+
           <button onClick={handleLogout} className="logout-btn">
             Logout
           </button>
@@ -80,14 +92,10 @@ const UserDashboard = ({ user }) => {
             <div className="recent-events">
               {events.length > 0 ? (
                 events.slice(0, 4).map((event) => (
-                  <div
-                    key={event.id}
-                    className="event-card-small"
-                  >
+                  <div key={event.id} className="event-card-small">
                     <h4>{event.name}</h4>
                     <p>{new Date(event.eventDateTime).toLocaleString()}</p>
                     <p>{event.location}</p>
-                    {/* ✅ Status Badge */}
                     <p>
                       Status:{" "}
                       <span
