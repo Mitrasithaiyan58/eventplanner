@@ -8,6 +8,7 @@ import {
   FaEnvelope,
   FaBook,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 import InquiryPopup from "../Auth/InquiryPopup";
 import BookingForm from "../Auth/BookingForm";
 import "./UserDashboard.css";
@@ -21,6 +22,7 @@ const UserDashboard = ({ user }) => {
   const [showBooking, setShowBooking] = useState(false);
   const [popupMessage, setPopupMessage] = useState(null);
 
+  // 🔹 Fetch all events
   useEffect(() => {
     axios
       .get("/events")
@@ -34,6 +36,35 @@ const UserDashboard = ({ user }) => {
       });
   }, []);
 
+  // ✅ Listen for event manager replies (prevent duplicates)
+  useEffect(() => {
+    let eventSource;
+
+    if (!window.__inquiryEventListenerAdded) {
+      window.__inquiryEventListenerAdded = true;
+
+      eventSource = new EventSource("http://localhost:8080/api/inquiries/notifications");
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data?.eventName) {
+            toast.info(`Event Manager replied to your inquiry: "${data.eventName}"`, {
+              position: "top-right",
+              autoClose: 3000,
+            });
+          }
+        } catch (error) {
+          console.error("Error parsing event data:", error);
+        }
+      };
+    }
+
+    return () => {
+      if (eventSource) eventSource.close();
+    };
+  }, []);
+
+  // 🔹 Logout
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/user-login");
@@ -46,11 +77,13 @@ const UserDashboard = ({ user }) => {
     (e) => e.status?.toLowerCase() === "completed"
   );
 
+  // 🔹 Popup message for invalid actions
   const showTemporaryPopup = (eventId, message, type) => {
     setPopupMessage({ id: eventId, text: message, type });
     setTimeout(() => setPopupMessage(null), 2500);
   };
 
+  // 🔹 Inquiry
   const openInquiryPopup = (event) => {
     if (event.status?.toLowerCase() === "completed") {
       showTemporaryPopup(
@@ -64,6 +97,7 @@ const UserDashboard = ({ user }) => {
     setShowInquiry(true);
   };
 
+  // 🔹 Booking
   const openBookingPopup = (event) => {
     if (event.status?.toLowerCase() === "completed") {
       showTemporaryPopup(
@@ -79,33 +113,33 @@ const UserDashboard = ({ user }) => {
 
   return (
     <div className="dashboard-wrapper">
+      {/* ===== HEADER ===== */}
       <header className="dashboard-header">
         <div className="greeting">Welcome, {user?.name} 🎉</div>
 
-        <div className="nav-buttons">
-          <button onClick={() => navigate("/create-event")}>Create Event</button>
-          <button onClick={() => navigate("/my-events")}>My Events</button>
-          <button onClick={() => navigate("/my-bookings")}>My Bookings</button>
-          <button onClick={() => navigate("/vendors")}>Vendors</button>
-          <button onClick={() => navigate("/ai-suggestions")}>
-            💡 AI Suggestions
-          </button>
-          <button onClick={() => navigate("/my-saved-vendors")}>
-            💾 Saved Vendors
-          </button>
-          <button onClick={() => navigate("/user-profile")}>Profile</button>
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
+       <div className="nav-buttons">
+  <button onClick={() => navigate("/create-event")}>Create Event</button>
+  <button onClick={() => navigate("/my-events")}>My Events</button>
+  <button onClick={() => navigate("/vendors")}>Vendors</button>
+  <button onClick={() => navigate("/my-saved-vendors")}>💾 Saved Vendors</button>
+  <button onClick={() => navigate("/ai-suggestions")}>💡 AI Suggestions</button>
+  <button onClick={() => navigate("/my-bookings")}>My Bookings</button>
+  <button onClick={() => navigate("/user-inquiries")}>💬 My Inquiries</button>
+  <button onClick={() => navigate("/user-profile")}>Profile</button>
+  <button className="logout-btn" onClick={handleLogout}>Logout</button>
+</div>
+
       </header>
 
+      {/* ===== DASHBOARD CONTENT ===== */}
       <div className="dashboard-content">
         {loading ? (
           <p className="loading-text">⏳ Initializing dashboard...</p>
         ) : (
           <>
             <h1>Dashboard</h1>
+
+            {/* ===== STATS ===== */}
             <div className="dashboard-stats">
               <div className="stat-card total">
                 <FaTasks />
@@ -126,6 +160,7 @@ const UserDashboard = ({ user }) => {
               </div>
             </div>
 
+            {/* ===== AVAILABLE EVENTS ===== */}
             <h2>Available Events</h2>
             <div className="recent-events">
               {events.length > 0 ? (
@@ -188,6 +223,7 @@ const UserDashboard = ({ user }) => {
         )}
       </div>
 
+      {/* ===== POPUPS ===== */}
       {showInquiry && selectedEvent && (
         <InquiryPopup
           event={selectedEvent}

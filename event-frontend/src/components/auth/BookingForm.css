@@ -1,45 +1,117 @@
+/* 🌫 Overlay Background */
 .popup-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.55);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
-.popup-box {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* 📦 Popup Container */
+.popup-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🏷️ Title */
+.popup-container h3 {
   text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.popup-box h3 {
-  margin-bottom: 15px;
+/* 🧾 Form Elements */
+.popup-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.popup-box input,
-.popup-box textarea {
-  width: 100%;
+.popup-container label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.popup-container input {
   padding: 10px;
-  margin-bottom: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+.popup-container input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+}
+
+/* 🎯 Action Buttons */
+.popup-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .popup-actions button {
-  margin: 5px;
-  padding: 8px 16px;
-  border: none;
-  background: #007bff;
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
   color: white;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.popup-actions button:hover {
-  background: #0056b3;
+/* ✅ Confirm Button */
+.popup-actions button[type="submit"] {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.popup-actions button[type="submit"]:hover {
+  background: linear-gradient(90deg, #5a67d8, #6b46c1);
+}
+
+/* ❌ Close Button */
+.close-btn {
+  background: #f87171;
+}
+
+.close-btn:hover {
+  background: #dc2626;
+}
+
+/* ✨ Status Message */
+.status-msg {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 10px;
 }

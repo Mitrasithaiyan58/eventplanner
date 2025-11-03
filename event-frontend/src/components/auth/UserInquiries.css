@@ -1,0 +1,149 @@
+/* 🌈 Page Background */
+.inquiry-page {
+  padding: 40px 60px;
+  background: radial-gradient(circle at top left, #e0e7ff, #f8fafc);
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 🔹 Title */
+.inquiry-page h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2d3748;
+  font-weight: 700;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.inquiry-page h2::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* 🧾 Inquiry Container */
+.inquiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+/* 🟣 Each Inquiry Card */
+.inquiry-card {
+  width: 70%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 25px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-left: 6px solid transparent;
+  transition: all 0.4s ease;
+  animation: fadeInCard 0.6s ease forwards;
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🖱️ Hover effect */
+.inquiry-card:hover {
+  transform: translateY(-5px);
+  border-left: 6px solid #667eea;
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+/* 📋 Inquiry Text */
+.inquiry-card p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* 🎯 Labels */
+.inquiry-card b {
+  color: #4a4a4a;
+}
+
+/* 🟩 Status Badge */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-left: 8px;
+  font-size: 0.9rem;
+}
+
+/* ✅ Replied */
+.status.Replied {
+  background: #e7f9ef;
+  color: #2e7d32;
+  border: 1px solid #81c784;
+}
+
+/* ⏳ Pending */
+.status.Pending,
+.status.undefined {
+  background: #fff7e6;
+  color: #ff9800;
+  border: 1px solid #ffcc80;
+}
+
+/* 💬 Reply Box */
+.reply-box {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  border-left: 4px solid #667eea;
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: #1a202c;
+  font-style: italic;
+  position: relative;
+}
+
+.reply-box::before {
+  content: "💬 Manager Reply";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: #667eea;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* 🧠 No Inquiries */
+.loading-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 50px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .inquiry-card {
+    width: 90%;
+    padding: 15px;
+  }
+  .inquiry-page {
+    padding: 20px;
+  }
+  .inquiry-page h2 {
+    font-size: 1.8rem;
+  }
+}

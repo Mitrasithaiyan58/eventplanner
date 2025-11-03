@@ -1,0 +1,55 @@
+.user-bookings-page {
+  padding: 30px;
+  text-align: center;
+  background: linear-gradient(135deg, #f0f3f7, #ffffff);
+  min-height: 100vh;
+}
+
+h2 {
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.booking-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  padding: 18px;
+  text-align: left;
+  transition: transform 0.2s ease-in-out;
+}
+
+.booking-card:hover {
+  transform: scale(1.03);
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-confirmed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}

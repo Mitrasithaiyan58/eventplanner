@@ -19,15 +19,22 @@ public class InquiryEntity {
     @Column(length = 500)
     private String message;
 
+    @Column(length = 20)
+    private String status = "Pending";
+
+    @Column(length = 1000)
+    private String reply; // ✅ Manager’s reply
+
     public InquiryEntity() {}
 
     public InquiryEntity(Long userId, Long eventId, String message) {
         this.userId = userId;
         this.eventId = eventId;
         this.message = message;
+        this.status = "Pending";
     }
 
-    // Getters and Setters
+    // ✅ Getters & Setters
     public Long getId() { return id; }
 
     public Long getUserId() { return userId; }
@@ -38,4 +45,10 @@ public class InquiryEntity {
 
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getReply() { return reply; }
+    public void setReply(String reply) { this.reply = reply; }
 }
