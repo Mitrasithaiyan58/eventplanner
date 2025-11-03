@@ -30,7 +30,7 @@ const BookingForm = ({ user, event, onClose }) => {
       console.log("📤 Sending booking data:", bookingData);
       const res = await axios.post("/api/bookings", bookingData);
 
-      setStatusMsg("🎉 Booking successful!");
+      setStatusMsg(" Booking successful!");
       console.log("✅ Booking created:", res.data);
 
       setTimeout(() => {

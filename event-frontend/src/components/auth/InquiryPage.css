@@ -1,34 +1,91 @@
-.inquiry-container {
-  max-width: 500px;
-  margin: 50px auto;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
+.inquiry-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f7ff, #dce9f5);
+  padding: 50px 20px;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.inquiry-container textarea {
-  width: 100%;
-  height: 150px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  margin-bottom: 15px;
-  background: #fff;
+.inquiry-container {
+  width: 90%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 30px;
   color: #333;
 }
 
-.inquiry-container button {
-  padding: 10px 20px;
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.inquiry-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.inquiry-container button:hover {
-  background: #2563eb;
+.inquiry-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-left: 6px solid #2563eb;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inquiry-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.inquiry-card h3 {
+  color: #1d4ed8;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.inquiry-card p {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+.inquiry-status {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  margin-top: 8px;
+}
+
+.status-replied {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pending {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.inquiry-reply {
+  background: #f0f9ff;
+  border-left: 4px solid #0ea5e9;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.no-inquiries {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.1rem;
+  padding: 50px 0;
 }

@@ -1,68 +1,141 @@
-.my-bookings {
-  padding: 30px;
-  text-align: center;
-  color: #222;
+.bookings-page {
+  background-color: #ffffff;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f0faff, #eaf3ff);
+  padding: 40px 20px;
+  color: #222;
+  font-family: "Poppins", sans-serif;
 }
 
-.my-bookings h2 {
+.bookings-title {
   font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #111;
 }
 
-.booking-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+.loading-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
 }
 
-.booking-card {
-  width: 280px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 15px 20px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  text-align: left;
+.no-bookings {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.explore-btn {
+  margin-top: 10px;
+  background-color: #111;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
   transition: 0.3s ease;
 }
 
+.explore-btn:hover {
+  background-color: #333;
+}
+
+/* --- Booking List --- */
+.booking-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+.booking-card {
+  background: #ecf4f4;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-left: 6px solid transparent;
+}
+
 .booking-card:hover {
-  transform: scale(1.03);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
-.booking-card h3 {
-  color: #0055aa;
-  margin-bottom: 8px;
-}
-
-.status {
-  font-weight: bold;
-  margin-top: 8px;
-  padding: 4px 8px;
-  border-radius: 6px;
+/* --- Status Badge --- */
+.status-badge {
   display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  border-radius: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.status.pending {
-  background: #fff6d1;
-  color: #b38f00;
+/* ✅ Clear visible colors */
+.status-confirmed {
+  background-color: #e8f8ee; /* light green tint */
+  color: #067a32; /* dark green text */
+  border: 2px solid #0a9e45;
 }
 
-.status.accepted {
-  background: #d4f8d4;
-  color: #15803d;
+.status-rejected {
+  background-color: #fbeaea; /* light red tint */
+  color: #b80f0f; /* dark red text */
+  border: 2px solid #d91a1a;
 }
 
-.status.rejected {
-  background: #ffe0e0;
-  color: #b91c1c;
+.status-pending {
+  background-color: #fff7e5; /* light yellow tint */
+  color: #a06a00; /* brownish-yellow text */
+  border: 2px solid #d1a400;
 }
 
-.notes {
-  font-style: italic;
-  color: #666;
-  margin-top: 5px;
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .bookings-title {
+    font-size: 1.6rem;
+  }
+
+  .booking-card {
+    padding: 16px;
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border-radius: 25px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Confirmed - bold green text on light green background */
+.status-confirmed {
+  background-color: #60d290;
+  color: #067a36;
+  border-color: #067a36;
+}
+
+/* ❌ Rejected - bold red text on light red background */
+.status-rejected {
+  background-color: #ce3030;
+  color: #b00020;
+  border-color: #b00020;
+}
+
+/* 🕓 Pending - bold gold text on light yellow background */
+.status-pending {
+  background-color: #fff7e6;
+  color: #b88000;
+  border-color: #b88000;
 }

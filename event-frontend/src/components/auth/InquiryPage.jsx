@@ -1,67 +1,65 @@
-import React, { useState } from "react";
+// src/pages/InquiryPage.jsx
+import React, { useEffect, useState } from "react";
 import axios from "../../axiosConfig";
-import "./InquiryPopup.css";
+import "./InquiryPage.css";
 
-const InquiryPopup = ({ event, user, onClose }) => {
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState("");
+const InquiryPage = ({ user }) => {
+  const [inquiries, setInquiries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("/api/inquiries", {
-        userId: user.id,
-        eventId: event.id,
-        message,
-      });
-      setStatus("✅ Inquiry sent successfully!");
-      setMessage("");
-
-      // Auto close popup after 2 seconds
-      setTimeout(() => {
-        setStatus("");
-        onClose();
-      }, 2000);
-    } catch (err) {
-      console.error(err);
-      setStatus("❌ Failed to send inquiry. Try again.");
-    }
-  };
+  useEffect(() => {
+    if (!user?.id) return;
+    const fetchInquiries = async () => {
+      try {
+        const res = await axios.get(`/api/inquiries/user/${user.id}`);
+        setInquiries(res.data);
+      } catch (err) {
+        console.error("Error fetching inquiries:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchInquiries();
+  }, [user]);
 
   return (
-    <div className="popup-overlay">
-      <div className="popup-container">
-        <h3>Send Inquiry - {event.name}</h3>
+    <div className="inquiry-page">
+      <h2 className="inquiry-title">💬 My Inquiries</h2>
 
-        {!status ? (
-          <form onSubmit={handleSubmit}>
-            <textarea
-              placeholder="Type your message here..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-            ></textarea>
+      {loading ? (
+        <p className="inquiry-loading">Loading inquiries...</p>
+      ) : inquiries.length === 0 ? (
+        <p className="no-inquiries">No inquiries found.</p>
+      ) : (
+        <div className="inquiry-list">
+          {inquiries.map((inq, index) => (
+            <div key={index} className="inquiry-card">
+              <h3 className="event-name">{inq.eventName}</h3>
+              <p className="inquiry-question">
+                <strong>Question:</strong> {inq.message}
+              </p>
 
-            <div className="popup-actions">
-              <button type="submit">Send</button>
-              <button
-                type="button"
-                className="close-btn"
-                onClick={() => {
-                  setStatus("");
-                  onClose();
-                }}
+              <span
+                className={`status-badge ${
+                  inq.status?.toLowerCase() === "replied"
+                    ? "status-replied"
+                    : "status-pending"
+                }`}
               >
-                Close
-              </button>
+                {inq.status || "Pending"}
+              </span>
+
+              {inq.status === "Replied" && (
+                <p className="inquiry-reply">
+                  <strong>Reply:</strong> {inq.reply}
+                </p>
+              )}
             </div>
-          </form>
-        ) : (
-          <p className="status-msg">{status}</p>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
-export default InquiryPopup;
+export default InquiryPage;
