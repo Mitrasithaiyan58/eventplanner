@@ -1,73 +1,111 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axiosConfig";
-import { FaCalendarAlt, FaCheckCircle, FaTasks } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaTasks,
+  FaEnvelope,
+  FaBook,
+} from "react-icons/fa";
+import InquiryPopup from "../Auth/InquiryPopup";
+import BookingForm from "../Auth/BookingForm";
 import "./UserDashboard.css";
 
 const UserDashboard = ({ user }) => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showInquiry, setShowInquiry] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
+  const [popupMessage, setPopupMessage] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      axios
-        .get(`/events/user/${user.id}`)
-        .then((res) => {
-          setEvents(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          setLoading(false);
-        });
-    }
-  }, [user]);
+    axios
+      .get("/events")
+      .then((res) => {
+        setEvents(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching events:", err);
+        setLoading(false);
+      });
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/user-login");
   };
 
-  const upcomingEvents = events.filter(
-    (e) => e.status && e.status.toLowerCase() === "planned"
+  const plannedEvents = events.filter(
+    (e) => e.status?.toLowerCase() === "planned"
   );
   const completedEvents = events.filter(
-    (e) => e.status && e.status.toLowerCase() === "completed"
+    (e) => e.status?.toLowerCase() === "completed"
   );
+
+  const showTemporaryPopup = (eventId, message, type) => {
+    setPopupMessage({ id: eventId, text: message, type });
+    setTimeout(() => setPopupMessage(null), 2500);
+  };
+
+  const openInquiryPopup = (event) => {
+    if (event.status?.toLowerCase() === "completed") {
+      showTemporaryPopup(
+        event.id,
+        "❌ This event is already completed. Inquiry not available.",
+        "inquiry"
+      );
+      return;
+    }
+    setSelectedEvent(event);
+    setShowInquiry(true);
+  };
+
+  const openBookingPopup = (event) => {
+    if (event.status?.toLowerCase() === "completed") {
+      showTemporaryPopup(
+        event.id,
+        "❌ This event is already completed. Booking not available.",
+        "booking"
+      );
+      return;
+    }
+    setSelectedEvent(event);
+    setShowBooking(true);
+  };
 
   return (
     <div className="dashboard-wrapper">
       <header className="dashboard-header">
-        <div className="greeting">Welcome, {user.name} 🎉</div>
+        <div className="greeting">Welcome, {user?.name} 🎉</div>
+
         <div className="nav-buttons">
           <button onClick={() => navigate("/create-event")}>Create Event</button>
           <button onClick={() => navigate("/my-events")}>My Events</button>
-          <button onClick={() => navigate("/user-profile")}>Profile</button>
-
-          {/* 🧠 AI Suggestions Button */}
-          <button onClick={() => navigate("/ai-suggestions")} className="ai-btn">
+          <button onClick={() => navigate("/my-bookings")}>My Bookings</button>
+          <button onClick={() => navigate("/vendors")}>Vendors</button>
+          <button onClick={() => navigate("/ai-suggestions")}>
             💡 AI Suggestions
           </button>
-
-          {/* 💾 Saved Vendors Button */}
-          <button onClick={() => navigate("/my-saved-vendors")} className="dashboard-btn">
-           Saved Vendors
+          <button onClick={() => navigate("/my-saved-vendors")}>
+            💾 Saved Vendors
           </button>
-
-          <button onClick={handleLogout} className="logout-btn">
+          <button onClick={() => navigate("/user-profile")}>Profile</button>
+          <button className="logout-btn" onClick={handleLogout}>
             Logout
           </button>
         </div>
       </header>
 
       <div className="dashboard-content">
-        <h1>Dashboard</h1>
-
         {loading ? (
-          <p>Loading events...</p>
+          <p className="loading-text">⏳ Initializing dashboard...</p>
         ) : (
           <>
+            <h1>Dashboard</h1>
             <div className="dashboard-stats">
               <div className="stat-card total">
                 <FaTasks />
@@ -77,7 +115,7 @@ const UserDashboard = ({ user }) => {
 
               <div className="stat-card upcoming">
                 <FaCalendarAlt />
-                <h3>{upcomingEvents.length}</h3>
+                <h3>{plannedEvents.length}</h3>
                 <p>Planned Events</p>
               </div>
 
@@ -88,37 +126,83 @@ const UserDashboard = ({ user }) => {
               </div>
             </div>
 
-            <h2>Recent Events</h2>
+            <h2>Available Events</h2>
             <div className="recent-events">
               {events.length > 0 ? (
-                events.slice(0, 4).map((event) => (
+                events.map((event) => (
                   <div key={event.id} className="event-card-small">
                     <h4>{event.name}</h4>
                     <p>{new Date(event.eventDateTime).toLocaleString()}</p>
-                    <p>{event.location}</p>
+                    <p>📍 {event.location}</p>
                     <p>
                       Status:{" "}
                       <span
                         className={`status-badge ${
-                          event.status.toLowerCase() === "planned"
+                          event.status?.toLowerCase() === "planned"
                             ? "status-planned"
-                            : event.status.toLowerCase() === "completed"
-                            ? "status-completed"
-                            : "status-total"
+                            : "status-completed"
                         }`}
                       >
                         {event.status}
                       </span>
                     </p>
+
+                    <div className="event-actions">
+                      <div className="action-btn-wrapper">
+                        <button
+                          className="inquiry-btn"
+                          onClick={() => openInquiryPopup(event)}
+                        >
+                          <FaEnvelope /> Inquiry
+                        </button>
+                        {popupMessage?.id === event.id &&
+                          popupMessage.type === "inquiry" && (
+                            <div className="tooltip-popup">
+                              {popupMessage.text}
+                            </div>
+                          )}
+                      </div>
+
+                      <div className="action-btn-wrapper">
+                        <button
+                          className="book-btn"
+                          onClick={() => openBookingPopup(event)}
+                        >
+                          <FaBook /> Book Now
+                        </button>
+                        {popupMessage?.id === event.id &&
+                          popupMessage.type === "booking" && (
+                            <div className="tooltip-popup">
+                              {popupMessage.text}
+                            </div>
+                          )}
+                      </div>
+                    </div>
                   </div>
                 ))
               ) : (
-                <p>No events created yet.</p>
+                <p>No events available at the moment.</p>
               )}
             </div>
           </>
         )}
       </div>
+
+      {showInquiry && selectedEvent && (
+        <InquiryPopup
+          event={selectedEvent}
+          user={user}
+          onClose={() => setShowInquiry(false)}
+        />
+      )}
+
+      {showBooking && selectedEvent && (
+        <BookingForm
+          event={selectedEvent}
+          user={user}
+          onClose={() => setShowBooking(false)}
+        />
+      )}
     </div>
   );
 };

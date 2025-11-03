@@ -11,17 +11,23 @@ const UserProfile = ({ user, setUser }) => {
 
   const handleUpdate = async () => {
     try {
+      // ✅ Include id inside request body
       const res = await axios.put(`/users/${user.id}`, {
+        id: user.id,
         name,
         email,
         phone,
         password,
       });
+
+      // ✅ Update both state + localStorage
+      localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
-      setMessage("Profile updated successfully!");
+
+      setMessage("✅ Profile updated successfully!");
     } catch (err) {
-      console.error(err);
-      setMessage("Update failed.");
+      console.error("Update error:", err);
+      setMessage("❌ Update failed. Please try again.");
     }
   };
 
@@ -30,6 +36,7 @@ const UserProfile = ({ user, setUser }) => {
       <div className="form-container">
         <h2>My Profile</h2>
         {message && <p>{message}</p>}
+
         <input
           placeholder="Name"
           value={name}
@@ -51,6 +58,7 @@ const UserProfile = ({ user, setUser }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <button onClick={handleUpdate}>Update Profile</button>
       </div>
     </div>

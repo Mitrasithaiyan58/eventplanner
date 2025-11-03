@@ -1,0 +1,56 @@
+.vendor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #f8f9ff, #edf6ff);
+  min-height: 100vh;
+}
+
+.vendor-card {
+  width: 280px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  transition: 0.3s ease;
+  text-align: left;
+}
+
+.vendor-card:hover {
+  transform: scale(1.04);
+}
+
+.vendor-card h3 {
+  color: #004aad;
+  margin-bottom: 10px;
+}
+
+.vendor-card p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.vendor-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.vendor-actions button {
+  flex: 1;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 0.9rem;
+}
+
+.vendor-actions button:hover {
+  background: #005fcc;
+}

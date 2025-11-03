@@ -12,7 +12,22 @@ const AISuggestions = () => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(null);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  // ✅ Ensure user is loaded from localStorage properly
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser && parsedUser.id) {
+          setUser(parsedUser);
+        }
+      } catch (e) {
+        console.error("Error parsing user:", e);
+      }
+    }
+  }, []);
 
   // 🧠 Fetch AI suggestions
   const handleSuggest = async () => {
@@ -52,9 +67,15 @@ const AISuggestions = () => {
         contact: vendor.contact,
       };
 
-      await axios.post("http://localhost:8080/api/saved-vendors/save", vendorData);
-      Swal.fire("✅ Saved!", `${vendor.name} added to your saved vendors.`, "success");
-      fetchSavedVendors(); // refresh saved list
+      const response = await axios.post(
+        "http://localhost:8080/api/saved-vendors/save",
+        vendorData
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        Swal.fire("✅ Saved!", `${vendor.name} added to your saved vendors.`, "success");
+        fetchSavedVendors();
+      }
     } catch (error) {
       console.error("Error saving vendor:", error);
       Swal.fire("❌ Error", "Could not save vendor.", "error");
@@ -91,7 +112,7 @@ const AISuggestions = () => {
     if (confirm.isConfirmed) {
       try {
         await axios.delete(`http://localhost:8080/api/saved-vendors/${vendorId}`);
-        setSavedVendors(savedVendors.filter((v) => v.id !== vendorId));
+        setSavedVendors((prev) => prev.filter((v) => v.id !== vendorId));
         Swal.fire("Deleted!", "Vendor has been removed.", "success");
       } catch (error) {
         console.error("Error deleting vendor:", error);
@@ -100,9 +121,10 @@ const AISuggestions = () => {
     }
   };
 
+  // 🧭 Fetch saved vendors when user changes
   useEffect(() => {
-    fetchSavedVendors();
-  }, []);
+    if (user && user.id) fetchSavedVendors();
+  }, [user]);
 
   return (
     <div className="ai-container">
