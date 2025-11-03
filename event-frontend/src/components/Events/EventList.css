@@ -75,3 +75,31 @@
 .delete-btn:hover {
   background-color: #d32f2f;
 }
+.event-message {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0;
+  color: red;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.status-badge.planned {
+  background-color: #28a745; /* green */
+}
+
+.status-badge.completed {
+  background-color: #6c757d; /* gray */
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

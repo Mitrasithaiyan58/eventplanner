@@ -18,16 +18,20 @@ public class UserEntity {
     private String phone;
 
     @Column(nullable = false)
-    private String password;  // New field
+    private String password;
+
+    @Column(nullable = false)
+    private String role = "USER"; // Default role
 
     // Constructors
     public UserEntity() {}
 
-    public UserEntity(String name, String email, String phone, String password) {
+    public UserEntity(String name, String email, String phone, String password, String role) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.role = role;
     }
 
     // Getters and Setters
@@ -45,4 +49,7 @@ public class UserEntity {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

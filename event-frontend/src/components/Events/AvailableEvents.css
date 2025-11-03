@@ -1,0 +1,113 @@
+.available-events-container {
+  padding: 30px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #ffcc70;
+}
+
+.vendors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.vendor-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.vendor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+}
+
+.vendor-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.vendor-info {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.vendor-name {
+  font-size: 1.3rem;
+  color: #ffd369;
+}
+
+.vendor-detail {
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.vendor-description {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: #e5e5e5;
+}
+
+.vendor-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.inquiry-btn,
+.book-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.inquiry-btn {
+  background: #f0a500;
+  color: #fff;
+}
+
+.inquiry-btn:hover {
+  background: #ffb703;
+}
+
+.book-btn {
+  background: #00b894;
+  color: white;
+}
+
+.book-btn:hover {
+  background: #00d4aa;
+}
+
+.loading-text,
+.no-vendors-text {
+  margin-top: 50px;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.icon {
+  color: #ffd369;
+  margin-right: 5px;
+}

@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../../axiosConfig";
+import InquiryPopup from "../Inquiries/InquiryPopup";
+import BookingForm from "../Bookings/BookingForm";
 import "./VendorList.css";
 
 const VendorList = ({ vendors, user }) => {
+  const navigate = useNavigate();
+  const [selectedVendor, setSelectedVendor] = useState(null);
+  const [showInquiry, setShowInquiry] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
+
   const handleSave = async (vendor) => {
     try {
       const savedVendor = {
         userId: user.id,
         vendorId: vendor.id,
         vendorName: vendor.name,
-        vendorType: vendor.vendorType || vendor.type, // ✅ Handles both cases
+        vendorType: vendor.vendorType || vendor.type,
         location: vendor.location,
         priceRange: vendor.priceRange,
         contact: vendor.contact,
       };
 
-      await axios.post("http://localhost:8080/api/saved-vendors/save", savedVendor);
+      await axios.post("/saved-vendors/save", savedVendor);
       alert("✅ Vendor saved successfully!");
     } catch (error) {
       console.error("❌ Error saving vendor:", error);
       alert("❌ Failed to save vendor.");
     }
+  };
+
+  const handleInquiry = (vendor) => {
+    setSelectedVendor(vendor);
+    setShowInquiry(true);
+  };
+
+  const handleBook = (vendor) => {
+    setSelectedVendor(vendor);
+    setShowBooking(true);
   };
 
   return (
@@ -32,9 +50,32 @@ const VendorList = ({ vendors, user }) => {
           <p>Location: {vendor.location}</p>
           <p>Price: ₹{vendor.priceRange}</p>
           <p>Contact: {vendor.contact}</p>
-          <button onClick={() => handleSave(vendor)}>💾 Save Vendor</button>
+
+          <div className="vendor-actions">
+            <button onClick={() => handleBook(vendor)}>📅 Book</button>
+            <button onClick={() => handleSave(vendor)}>💾 Save</button>
+            <button onClick={() => handleInquiry(vendor)}>📩 Enquiry</button>
+          </div>
         </div>
       ))}
+
+      {/* 💬 Inquiry Popup */}
+      {showInquiry && selectedVendor && (
+        <InquiryPopup
+          userId={user.id}
+          vendorId={selectedVendor.id}
+          onClose={() => setShowInquiry(false)}
+        />
+      )}
+
+      {/* 🪪 Booking Form */}
+      {showBooking && selectedVendor && (
+        <BookingForm
+          userId={user.id}
+          vendorId={selectedVendor.id}
+          onClose={() => setShowBooking(false)}
+        />
+      )}
     </div>
   );
 };
