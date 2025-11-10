@@ -17,6 +17,7 @@ import AvailableEvents from "./components/Events/AvailableEvents";
 import BookingForm from "./components/Auth/BookingForm";
 import SavedVendors from "./components/Vendors/SavedVendors";
 import AISuggestions from "./components/AI/AISuggestions";
+import VendorsPage from "./components/Auth/VendorsPage";
 
 // 🎉 EVENT MANAGER COMPONENTS
 import EventLogin from "./components/Events/EventLogin";
@@ -180,6 +181,9 @@ function App() {
 
         {/* ================= EVENT MANAGER ROUTES ================= */}
         <Route path="/event-login" element={<EventLogin setEventManager={setEventManager} />} />
+
+        <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/vendors" element={<VendorsPage />} />
 
         <Route
           path="/event-dashboard"
