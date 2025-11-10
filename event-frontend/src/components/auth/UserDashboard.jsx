@@ -22,7 +22,7 @@ const UserDashboard = ({ user }) => {
   const [showBooking, setShowBooking] = useState(false);
   const [popupMessage, setPopupMessage] = useState(null);
 
-  // 🔹 Fetch all events
+  // Fetch Events
   useEffect(() => {
     axios
       .get("/events")
@@ -36,7 +36,7 @@ const UserDashboard = ({ user }) => {
       });
   }, []);
 
-  // ✅ Listen for event manager replies (prevent duplicates)
+  // SSE - listen for inquiry replies
   useEffect(() => {
     let eventSource;
 
@@ -64,7 +64,7 @@ const UserDashboard = ({ user }) => {
     };
   }, []);
 
-  // 🔹 Logout
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/user-login");
@@ -77,13 +77,13 @@ const UserDashboard = ({ user }) => {
     (e) => e.status?.toLowerCase() === "completed"
   );
 
-  // 🔹 Popup message for invalid actions
+  // Temporary Popup
   const showTemporaryPopup = (eventId, message, type) => {
     setPopupMessage({ id: eventId, text: message, type });
     setTimeout(() => setPopupMessage(null), 2500);
   };
 
-  // 🔹 Inquiry
+  // Inquiry Popup
   const openInquiryPopup = (event) => {
     if (event.status?.toLowerCase() === "completed") {
       showTemporaryPopup(
@@ -97,7 +97,7 @@ const UserDashboard = ({ user }) => {
     setShowInquiry(true);
   };
 
-  // 🔹 Booking
+  // Booking Popup
   const openBookingPopup = (event) => {
     if (event.status?.toLowerCase() === "completed") {
       showTemporaryPopup(
@@ -113,25 +113,24 @@ const UserDashboard = ({ user }) => {
 
   return (
     <div className="dashboard-wrapper">
-      {/* ===== HEADER ===== */}
+      {/* HEADER */}
       <header className="dashboard-header">
-        <div className="greeting">Welcome, {user?.name} 🎉</div>
+        <div className="greeting">Welcome, {user?.name} </div>
 
-       <div className="nav-buttons">
-  <button onClick={() => navigate("/create-event")}>Create Event</button>
-  <button onClick={() => navigate("/my-events")}>My Events</button>
-  <button onClick={() => navigate("/vendors")}>Vendors</button>
-  <button onClick={() => navigate("/my-saved-vendors")}>💾 Saved Vendors</button>
-  <button onClick={() => navigate("/ai-suggestions")}>💡 AI Suggestions</button>
-  <button onClick={() => navigate("/my-bookings")}>My Bookings</button>
-  <button onClick={() => navigate("/user-inquiries")}>💬 My Inquiries</button>
-  <button onClick={() => navigate("/user-profile")}>Profile</button>
-  <button className="logout-btn" onClick={handleLogout}>Logout</button>
-</div>
-
+        <div className="nav-buttons">
+          <button onClick={() => navigate("/create-event")}><FaCalendarAlt /> Create Event</button>
+          <button onClick={() => navigate("/my-events")}><FaTasks /> My Events</button>
+          <button onClick={() => navigate("/vendors")}>🛍 Vendors</button>
+          <button onClick={() => navigate("/my-saved-vendors")}>💾 Saved Vendors</button>
+          <button onClick={() => navigate("/ai-suggestions")}>💡 AI Suggestions</button>
+          <button onClick={() => navigate("/my-bookings")}><FaBook /> My Bookings</button>
+          <button onClick={() => navigate("/user-inquiries")}>💬 My Inquiries</button>
+          <button onClick={() => navigate("/user-profile")}>👤 Profile</button>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        </div>
       </header>
 
-      {/* ===== DASHBOARD CONTENT ===== */}
+      {/* CONTENT */}
       <div className="dashboard-content">
         {loading ? (
           <p className="loading-text">⏳ Initializing dashboard...</p>
@@ -139,7 +138,7 @@ const UserDashboard = ({ user }) => {
           <>
             <h1>Dashboard</h1>
 
-            {/* ===== STATS ===== */}
+            {/* STATS */}
             <div className="dashboard-stats">
               <div className="stat-card total">
                 <FaTasks />
@@ -160,7 +159,7 @@ const UserDashboard = ({ user }) => {
               </div>
             </div>
 
-            {/* ===== AVAILABLE EVENTS ===== */}
+            {/* EVENTS LIST */}
             <h2>Available Events</h2>
             <div className="recent-events">
               {events.length > 0 ? (
@@ -184,10 +183,7 @@ const UserDashboard = ({ user }) => {
 
                     <div className="event-actions">
                       <div className="action-btn-wrapper">
-                        <button
-                          className="inquiry-btn"
-                          onClick={() => openInquiryPopup(event)}
-                        >
+                        <button className="inquiry-btn" onClick={() => openInquiryPopup(event)}>
                           <FaEnvelope /> Inquiry
                         </button>
                         {popupMessage?.id === event.id &&
@@ -199,10 +195,7 @@ const UserDashboard = ({ user }) => {
                       </div>
 
                       <div className="action-btn-wrapper">
-                        <button
-                          className="book-btn"
-                          onClick={() => openBookingPopup(event)}
-                        >
+                        <button className="book-btn" onClick={() => openBookingPopup(event)}>
                           <FaBook /> Book Now
                         </button>
                         {popupMessage?.id === event.id &&
@@ -223,21 +216,13 @@ const UserDashboard = ({ user }) => {
         )}
       </div>
 
-      {/* ===== POPUPS ===== */}
+      {/* POPUPS */}
       {showInquiry && selectedEvent && (
-        <InquiryPopup
-          event={selectedEvent}
-          user={user}
-          onClose={() => setShowInquiry(false)}
-        />
+        <InquiryPopup event={selectedEvent} user={user} onClose={() => setShowInquiry(false)} />
       )}
 
       {showBooking && selectedEvent && (
-        <BookingForm
-          event={selectedEvent}
-          user={user}
-          onClose={() => setShowBooking(false)}
-        />
+        <BookingForm event={selectedEvent} user={user} onClose={() => setShowBooking(false)} />
       )}
     </div>
   );

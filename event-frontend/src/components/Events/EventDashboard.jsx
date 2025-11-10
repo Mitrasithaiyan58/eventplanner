@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../../axiosConfig";
 import "./EventDashboard.css";
 
@@ -9,6 +10,8 @@ const EventDashboard = () => {
   const [replyText, setReplyText] = useState({});
   const [prevBookingCount, setPrevBookingCount] = useState(0);
   const [prevInquiryCount, setPrevInquiryCount] = useState(0);
+  const [activeTab, setActiveTab] = useState("bookings");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Notification.permission !== "granted") {
@@ -29,12 +32,20 @@ const EventDashboard = () => {
 
         if (newBookings.length > prevBookingCount) {
           const latestBooking = newBookings[newBookings.length - 1];
-          showNotification("Booking", latestBooking.userName, latestBooking.eventName);
+          showNotification(
+            "Booking",
+            latestBooking.userName,
+            latestBooking.eventName
+          );
         }
 
         if (newInquiries.length > prevInquiryCount) {
           const latestInquiry = newInquiries[newInquiries.length - 1];
-          showNotification("Inquiry", latestInquiry.userName, latestInquiry.eventName);
+          showNotification(
+            "Inquiry",
+            latestInquiry.userName,
+            latestInquiry.eventName
+          );
         }
 
         setBookings(newBookings);
@@ -52,7 +63,8 @@ const EventDashboard = () => {
   }, [prevBookingCount, prevInquiryCount]);
 
   const showNotification = (type, userName, eventName) => {
-    const title = type === "Booking" ? "🔔 New Booking Alert" : "📩 New Inquiry Alert";
+    const title =
+      type === "Booking" ? "🔔 New Booking Alert" : "📩 New Inquiry Alert";
     const message = `${type} from ${userName} for "${eventName}"`;
 
     if (Notification.permission === "granted") {
@@ -96,32 +108,65 @@ const EventDashboard = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("eventManager");
+    navigate("/event-login");
+  };
+
   return (
     <div className="manager-dashboard">
-      <h2>📅 Event Manager Dashboard</h2>
-      <button className="logout-btn">Logout</button>
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
+
+      <h2>Event Manager Dashboard</h2>
 
       <div className="dashboard-stats">
         <div className="stat-card">
-          Total Bookings<br />{bookings.length}
+          Total Bookings<br />
+          <strong>{bookings.length}</strong>
         </div>
         <div className="stat-card">
-          Total Inquiries<br />{inquiries.length}
+          Total Inquiries<br />
+          <strong>{inquiries.length}</strong>
         </div>
       </div>
 
-      <h3>Notifications</h3>
+      <div className="dashboard-tabs">
+        <button
+          className={activeTab === "bookings" ? "active" : ""}
+          onClick={() => setActiveTab("bookings")}
+        >
+          📅 Bookings
+        </button>
+        <button
+          className={activeTab === "inquiries" ? "active" : ""}
+          onClick={() => setActiveTab("inquiries")}
+        >
+          💬 Inquiries
+        </button>
+      </div>
 
-      {bookings.length === 0 && inquiries.length === 0 ? (
-        <p>No bookings or inquiries yet.</p>
-      ) : (
-        <>
-          {/* BOOKINGS */}
-          <h4>Bookings</h4>
-          {bookings.map((b) => (
+      <div
+        className={`tab-content ${
+          activeTab === "bookings" ? "active" : "hidden"
+        }`}
+      >
+        {bookings.length === 0 ? (
+          <p>No bookings yet.</p>
+        ) : (
+          bookings.map((b) => (
             <div key={b.id} className="notif-item">
-              <strong>{b.userName}</strong> — {b.eventName}<br />
-              <span>Status: {b.status}</span>
+              <strong>{b.userName}</strong> — {b.eventName}
+              <div className={`status-badge ${
+                b.status === "CONFIRMED"
+                  ? "status-confirmed"
+                  : b.status === "REJECTED"
+                  ? "status-rejected"
+                  : "status-pending"
+              }`}>
+                {b.status}
+              </div>
               {b.status === "PENDING" && (
                 <div className="action-btns">
                   <button
@@ -139,15 +184,29 @@ const EventDashboard = () => {
                 </div>
               )}
             </div>
-          ))}
+          ))
+        )}
+      </div>
 
-          {/* INQUIRIES */}
-          <h4>Inquiries</h4>
-          {inquiries.map((q) => (
+      <div
+        className={`tab-content ${
+          activeTab === "inquiries" ? "active" : "hidden"
+        }`}
+      >
+        {inquiries.length === 0 ? (
+          <p>No inquiries yet.</p>
+        ) : (
+          inquiries.map((q) => (
             <div key={q.id} className="notif-item inquiry">
-              <strong>{q.userName}</strong> — {q.eventName}<br />
+              <strong>{q.userName}</strong> — {q.eventName}
               <p>Question: {q.message}</p>
-              <span>Status: {q.status}</span><br />
+              <div className={`status-badge ${
+                q.status === "Replied"
+                  ? "status-confirmed"
+                  : "status-pending"
+              }`}>
+                {q.status}
+              </div>
               {q.status === "Pending" && (
                 <div className="reply-section">
                   <textarea
@@ -166,12 +225,14 @@ const EventDashboard = () => {
                 </div>
               )}
               {q.status === "Replied" && (
-                <p><strong>Reply:</strong> {q.reply}</p>
+                <p>
+                  <strong>Reply:</strong> {q.reply}
+                </p>
               )}
             </div>
-          ))}
-        </>
-      )}
+          ))
+        )}
+      </div>
 
       {popup && <div className="popup-banner">{popup}</div>}
     </div>

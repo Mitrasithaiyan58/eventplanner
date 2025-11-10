@@ -8,7 +8,7 @@
 }
 
 .event-auth-container {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(92, 85, 85, 0.9);
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -22,7 +22,7 @@
   padding: 10px;
   margin: 10px 0;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 .event-auth-container button {
