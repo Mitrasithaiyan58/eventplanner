@@ -1,8 +1,8 @@
+// src/axiosConfig.js
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080", // your Spring Boot backend
-  headers: { "Content-Type": "application/json" },
+  baseURL: "http://localhost:8080", // replace with your backend URL
 });
 
 export default instance;

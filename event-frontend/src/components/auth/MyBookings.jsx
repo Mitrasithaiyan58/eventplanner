@@ -1,21 +1,27 @@
-// src/components/Auth/MyBookings.jsx
 import React, { useEffect, useState } from "react";
 import axios from "../../axiosConfig";
+import { useNavigate } from "react-router-dom";
 import "./MyBookings.css";
 
 const MyBookings = ({ user }) => {
-  const [bookings, setBookings] = useState([]);
+  const [activeTab, setActiveTab] = useState("event");
+  const [eventBookings, setEventBookings] = useState([]);
+  const [vendorBookings, setVendorBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.id) return;
 
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`/api/bookings/user/${user.id}`);
-        setBookings(res.data);
+        const eventRes = await axios.get(`/api/bookings/user/${user.id}`);
+        setEventBookings(eventRes.data || []);
+
+        const vendorRes = await axios.get(`/vendor-booking/user/${user.id}`);
+        setVendorBookings(vendorRes.data || []);
       } catch (err) {
-        console.error("❌ Error fetching bookings:", err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -24,50 +30,48 @@ const MyBookings = ({ user }) => {
     fetchBookings();
   }, [user]);
 
+  if (loading) return <p>Loading your bookings...</p>;
+
   return (
     <div className="bookings-page">
-      <h2 className="bookings-title"> My Bookings</h2>
+      <h2>My Bookings</h2>
 
-      {loading ? (
-        <p className="loading-text">Loading your bookings...</p>
-      ) : bookings.length === 0 ? (
-        <div className="no-bookings">
-          <p>No bookings yet.</p>
-          <button
-            className="explore-btn"
-            onClick={() => (window.location.href = "/available-events")}
-          >
-            ➕ Start Booking a Vendor
-          </button>
+      <div className="tabs">
+        <button className={activeTab === "event" ? "active" : ""} onClick={() => setActiveTab("event")}>
+          🎉 Event Bookings
+        </button>
+        <button className={activeTab === "vendor" ? "active" : ""} onClick={() => setActiveTab("vendor")}>
+          🛍 Vendor Bookings
+        </button>
+      </div>
+
+      {activeTab === "event" && (
+        <div>
+          {eventBookings.length === 0 ? <p>No event bookings found.</p> : (
+            eventBookings.map((b, idx) => (
+              <div key={idx} className="booking-card">
+                <h3>{b.eventName}</h3>
+                <p>Date: {b.eventDate?.split("T")[0]}</p>
+                <p>Status: {b.status || "PENDING"}</p>
+              </div>
+            ))
+          )}
         </div>
-      ) : (
-        <div className="booking-list">
-          {bookings.map((b, index) => (
-            <div key={index} className="booking-card">
-              <h3>{b.eventName}</h3>
-              <p>
-                <strong>Booked By:</strong> {b.userName}
-              </p>
-              <p>
-                <strong>Guests:</strong> {b.guestCount}
-              </p>
-              <p>
-                <strong>Date:</strong>{" "}
-                {b.eventDate ? b.eventDate.split("T")[0] : "—"}
-              </p>
-              <span
-                className={`status-badge ${
-                  b.status?.toLowerCase() === "confirmed"
-                    ? "status-confirmed"
-                    : b.status?.toLowerCase() === "rejected"
-                    ? "status-rejected"
-                    : "status-pending"
-                }`}
-              >
-                {b.status || "PENDING"}
-              </span>
-            </div>
-          ))}
+      )}
+
+      {activeTab === "vendor" && (
+        <div>
+          {vendorBookings.length === 0 ? <p>No vendor bookings found.</p> : (
+            vendorBookings.map((v, idx) => (
+              <div key={idx} className="booking-card">
+                <h3>{v.eventName}</h3>
+                <p>Vendor ID: {v.vendorId}</p>
+                <p>Date: {v.eventDate?.split("T")[0]}</p>
+                <p>Notes: {v.notes || "-"}</p>
+                <p>Status: {v.status || "PENDING"}</p>
+              </div>
+            ))
+          )}
         </div>
       )}
     </div>

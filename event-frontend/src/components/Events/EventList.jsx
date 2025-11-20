@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axiosConfig";
 import "./EventList.css";
@@ -9,40 +9,43 @@ const EventList = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user?.id) return;
     fetchEvents();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
 
   const fetchEvents = async () => {
     try {
       const res = await axios.get(`/events/user/${user.id}`);
-      setEvents(res.data);
+      setEvents(res.data || []);
     } catch (err) {
-      console.error("❌ Failed to fetch events:", err);
+      console.error("Failed to fetch events:", err);
       setMessage("Failed to fetch events.");
     }
   };
 
   const handleDelete = async (eventId, status) => {
-    if (status?.toUpperCase() === "COMPLETED") {
+    if (status?.toLowerCase() === "completed") {
       setMessage("❌ You cannot delete a completed event.");
       setTimeout(() => setMessage(""), 3000);
       return;
     }
 
     if (!window.confirm("Are you sure you want to delete this event?")) return;
+
     try {
       await axios.delete(`/events/${eventId}`);
       setMessage("✅ Event deleted successfully!");
-      setEvents(events.filter((e) => e.id !== eventId));
+      setEvents((prev) => prev.filter((e) => e.id !== eventId));
       setTimeout(() => setMessage(""), 2000);
     } catch (err) {
-      console.error("❌ Failed to delete:", err);
+      console.error("Failed to delete event:", err);
       setMessage("Failed to delete event.");
     }
   };
 
   const handleEdit = (eventId, status) => {
-    if (status?.toUpperCase() === "COMPLETED") {
+    if (status?.toLowerCase() === "completed") {
       setMessage("❌ You cannot edit a completed event.");
       setTimeout(() => setMessage(""), 3000);
       return;
@@ -62,26 +65,16 @@ const EventList = ({ user }) => {
           {events.map((event) => (
             <div key={event.id} className="event-card">
               <h3>{event.name}</h3>
-
               <p><strong>Description:</strong> {event.description || "-"}</p>
               <p><strong>Location:</strong> {event.location || "-"}</p>
               <p>
                 <strong>Date & Time:</strong>{" "}
-                {event.eventDateTime
-                  ? new Date(event.eventDateTime).toLocaleString()
-                  : "-"}
+                {event.eventDateTime ? new Date(event.eventDateTime).toLocaleString() : "-"}
               </p>
 
-              {/* ✅ Status Badge */}
               <p>
                 <strong>Status: </strong>
-                <span
-                  className={`status-badge ${
-                    event.status?.toLowerCase() === "completed"
-                      ? "completed"
-                      : "planned"
-                  }`}
-                >
+                <span className={`status-badge ${event.status?.toLowerCase() === "completed" ? "completed" : "planned"}`}>
                   {event.status || "Planned"}
                 </span>
               </p>
@@ -90,16 +83,37 @@ const EventList = ({ user }) => {
                 <button
                   className="edit-btn"
                   onClick={() => handleEdit(event.id, event.status)}
-                  disabled={event.status?.toUpperCase() === "COMPLETED"}
+                  disabled={event.status?.toLowerCase() === "completed"}
                 >
                   ✏️ Edit
                 </button>
+
                 <button
                   className="delete-btn"
                   onClick={() => handleDelete(event.id, event.status)}
-                  disabled={event.status?.toUpperCase() === "COMPLETED"}
+                  disabled={event.status?.toLowerCase() === "completed"}
                 >
                   🗑️ Delete
+                </button>
+
+                {/* Give Feedback: only enabled when event is completed AND a vendor is assigned */}
+                <button
+                  className="feedback-btn"
+                  onClick={() => {
+                    if (event.status?.toLowerCase() !== "completed") {
+                      alert("You can give feedback only after the event is completed.");
+                      return;
+                    }
+                    // vendor can be nested object (event.vendor) or vendorId field
+                    const vendorId = event.vendor?.id ?? event.vendorId ?? null;
+                    if (!vendorId) {
+                      alert("Vendor not assigned for this event.");
+                      return;
+                    }
+                    navigate(`/give-feedback?vendor=${vendorId}&event=${event.id}&user=${user.id}`);
+                  }}
+                >
+                  ⭐ Give Feedback
                 </button>
               </div>
             </div>

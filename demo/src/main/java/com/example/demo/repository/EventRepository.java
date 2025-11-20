@@ -9,6 +9,9 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<EventEntity, Long> {
 
-    // Fetch all events created by a specific user
     List<EventEntity> findByUserOrganizerId(Long userId);
+
+
+    // ✔ Used for feedback page: only completed events WITH vendor
+    List<EventEntity> findByUserOrganizerIdAndStatusAndVendorIsNotNull(Long userId, String status);
 }

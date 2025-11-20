@@ -11,17 +11,13 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
-
     private String description;
     private String location;
     private LocalDateTime eventDateTime;
 
-    @Column(nullable = false)
-    private String status = "Planned"; // default status
+    private String status = "Planned";
 
-    // Organizer can be either Admin or User
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = true)
     private AdminEntity adminOrganizer;
@@ -30,23 +26,14 @@ public class EventEntity {
     @JoinColumn(name = "user_id", nullable = true)
     private UserEntity userOrganizer;
 
+    @ManyToOne
+    @JoinColumn(name = "vendor_id", nullable = true) // ✔ Correct vendor reference
+    private VendorEntity vendor;
+
     public EventEntity() {}
 
-    public EventEntity(String name, String description, String location,
-                       LocalDateTime eventDateTime,
-                       AdminEntity adminOrganizer,
-                       UserEntity userOrganizer,
-                       String status) {
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.eventDateTime = eventDateTime;
-        this.adminOrganizer = adminOrganizer;
-        this.userOrganizer = userOrganizer;
-        this.status = status;
-    }
-
     // Getters & Setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -70,4 +57,7 @@ public class EventEntity {
 
     public UserEntity getUserOrganizer() { return userOrganizer; }
     public void setUserOrganizer(UserEntity userOrganizer) { this.userOrganizer = userOrganizer; }
+
+    public VendorEntity getVendor() { return vendor; }
+    public void setVendor(VendorEntity vendor) { this.vendor = vendor; }
 }
