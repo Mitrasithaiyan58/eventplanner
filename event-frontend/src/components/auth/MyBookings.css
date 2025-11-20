@@ -139,3 +139,44 @@
   color: #b88000;
   border-color: #b88000;
 }
+
+
+.booking-section {
+  margin-bottom: 2rem;
+}
+
+.booking-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+
+/* 🔹 Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: 2px solid #ccc;
+  background: #f9f9f9;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: #f0f0f0;
+}
+
+.tab-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}

@@ -1,0 +1,131 @@
+.feedback-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.6); /* dark frosted background */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.feedback-container h2 {
+  text-align: center;
+  color: #ffcc70;
+  margin-bottom: 25px;
+  font-size: 1.9rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+.feedback-container select,
+.feedback-container input,
+.feedback-container textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0 20px 0;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.feedback-container select:focus,
+.feedback-container input:focus,
+.feedback-container textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.2);
+}
+
+.feedback-container label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+  color: #ffd369;
+  font-size: 0.95rem;
+}
+
+.feedback-container textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #00b894;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.submit-btn:hover {
+  background: #00d4aa;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+.feedback-container p {
+  color: #ccc;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.event-select {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .feedback-container {
+    margin: 20px;
+    padding: 25px;
+  }
+
+  .submit-btn {
+    padding: 12px;
+  }
+}
+
+.feedback-container select,
+.feedback-container input,
+.feedback-container textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0 20px 0;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff; /* text color */
+  font-size: 1rem;
+  font-weight: 500;
+  appearance: none; /* remove default arrow for consistency */
+}
+
+.feedback-container select option {
+  color: #000; /* dropdown options text */
+  background: #fff; /* dropdown background for readability */
+}
+
+.feedback-container select:focus,
+.feedback-container input:focus,
+.feedback-container textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* placeholder color */
+.feedback-container input::placeholder,
+.feedback-container textarea::placeholder {
+  color: #ddd;
+}

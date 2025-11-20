@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.EventDTO;
 import com.example.demo.entity.EventEntity;
 import com.example.demo.service.EventService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,15 +29,11 @@ public class EventController {
 
     @PostMapping
     public EventEntity createEvent(@RequestBody EventEntity event) {
-        // Prevent frontend from setting status manually
-        event.setStatus(null);
         return eventService.createEvent(event);
     }
 
     @PutMapping("/{id}")
     public EventEntity updateEvent(@PathVariable Long id, @RequestBody EventEntity event) {
-        // Prevent frontend from setting status manually
-        event.setStatus(null);
         return eventService.updateEvent(id, event);
     }
 
@@ -48,5 +46,13 @@ public class EventController {
     @GetMapping("/user/{userId}")
     public List<EventEntity> getEventsByUserId(@PathVariable Long userId) {
         return eventService.getEventsByUserId(userId);
+    }
+
+    // ⭐ MISSING API ADDED NOW ⭐
+   
+    // Completed events endpoint for feedback
+    @GetMapping("/completed/{userId}")
+    public List<EventDTO> getCompletedEvents(@PathVariable Long userId) {
+        return eventService.getCompletedEventsByUserId(userId);
     }
 }

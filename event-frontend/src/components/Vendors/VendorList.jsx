@@ -11,6 +11,7 @@ const VendorList = ({ vendors, user }) => {
   const [showInquiry, setShowInquiry] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
 
+  // 🔹 Save vendor
   const handleSave = async (vendor) => {
     try {
       const savedVendor = {
@@ -31,14 +32,21 @@ const VendorList = ({ vendors, user }) => {
     }
   };
 
+  // 🔹 Inquiry popup
   const handleInquiry = (vendor) => {
     setSelectedVendor(vendor);
     setShowInquiry(true);
   };
 
+  // 🔹 (Old) Book popup (you can keep if needed)
   const handleBook = (vendor) => {
     setSelectedVendor(vendor);
     setShowBooking(true);
+  };
+
+  // 🔹 🆕 Navigate to Vendor Booking Form
+  const handlePlanWithVendor = (vendorId) => {
+    navigate(`/vendor-book/${vendorId}`);
   };
 
   return (
@@ -55,6 +63,8 @@ const VendorList = ({ vendors, user }) => {
             <button onClick={() => handleBook(vendor)}>📅 Book</button>
             <button onClick={() => handleSave(vendor)}>💾 Save</button>
             <button onClick={() => handleInquiry(vendor)}>📩 Enquiry</button>
+            {/* 🆕 Plan with Vendor Button */}
+            <button onClick={() => handlePlanWithVendor(vendor.id)}>🤝 Plan with Vendor</button>
           </div>
         </div>
       ))}
