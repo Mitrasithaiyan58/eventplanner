@@ -32,10 +32,16 @@ public class EventController {
         return eventService.createEvent(event);
     }
 
-    @PutMapping("/{id}")
-    public EventEntity updateEvent(@PathVariable Long id, @RequestBody EventEntity event) {
-        return eventService.updateEvent(id, event);
-    }
+    // @PutMapping("/{id}")
+    // public EventEntity updateEvent(@PathVariable Long id, @RequestBody EventEntity event) {
+    //     return eventService.updateEvent(id, event);
+    // }
+
+    @PutMapping("/{id}/setPrice")
+public EventEntity setEventPrice(@PathVariable Long id, @RequestParam Double price) {
+    return eventService.setEventPrice(id, price);
+}
+
 
     @DeleteMapping("/{id}")
     public String deleteEvent(@PathVariable Long id) {

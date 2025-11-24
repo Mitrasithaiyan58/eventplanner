@@ -155,6 +155,15 @@ public class EventService {
         return events;
     }
 
+
+    public EventEntity setEventPrice(Long eventId, Double price) {
+    EventEntity event = eventRepository.findById(eventId)
+            .orElseThrow(() -> new RuntimeException("Event not found"));
+
+    event.setEventPrice(price);
+    return eventRepository.save(event);
+}
+
     // -------------------------------------
     
     // Get completed events for feedback

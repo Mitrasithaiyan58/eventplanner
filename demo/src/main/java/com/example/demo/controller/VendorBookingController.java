@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vendor-booking") // singular, match frontend
+@RequestMapping("/vendor-booking")
 @CrossOrigin(origins = "*")
 public class VendorBookingController {
 
@@ -37,9 +37,13 @@ public class VendorBookingController {
             return ResponseEntity.badRequest().body("vendorId is required");
         }
 
+        if (booking.getPrice() <= 0) {
+            return ResponseEntity.badRequest().body("price must be > 0");
+        }
+
         VendorBookingEntity saved = vendorBookingRepository.save(booking);
 
-        // Assign vendor to event
+        // Assign vendor to event (so EventEntity.vendor gets set)
         EventEntity event = eventRepository.findById(booking.getEventId())
                 .orElseThrow(() -> new RuntimeException("Event not found"));
 
@@ -58,9 +62,19 @@ public class VendorBookingController {
         return vendorBookingRepository.findAll();
     }
 
-    // Get bookings for a specific user ✅
+    // Get bookings for a specific user
     @GetMapping("/user/{userId}")
     public List<VendorBookingEntity> getUserBookings(@PathVariable Long userId) {
         return vendorBookingRepository.findByUserId(userId);
+    }
+
+    @PutMapping("/{id}/confirm")
+    public ResponseEntity<?> confirmBooking(@PathVariable Long id) {
+        var opt = vendorBookingRepository.findById(id);
+        if(opt.isEmpty()) return ResponseEntity.notFound().build();
+        VendorBookingEntity b = opt.get();
+        b.setStatus("CONFIRMED");
+        vendorBookingRepository.save(b);
+        return ResponseEntity.ok(b);
     }
 }

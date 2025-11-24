@@ -15,6 +15,8 @@ public class EventEntity {
     private String description;
     private String location;
     private LocalDateTime eventDateTime;
+    private Double eventPrice; // price set by Event Manager
+
 
     private String status = "Planned";
 
@@ -58,6 +60,21 @@ public class EventEntity {
     public UserEntity getUserOrganizer() { return userOrganizer; }
     public void setUserOrganizer(UserEntity userOrganizer) { this.userOrganizer = userOrganizer; }
 
-    public VendorEntity getVendor() { return vendor; }
-    public void setVendor(VendorEntity vendor) { this.vendor = vendor; }
+    public VendorEntity getVendor() 
+    { 
+        return vendor;
+    }
+    public void setVendor(VendorEntity vendor) 
+    { 
+        this.vendor = vendor;
+    }
+    public Double getEventPrice() 
+    { 
+       return eventPrice; 
+    }
+public void setEventPrice(Double eventPrice) 
+{ 
+    this.eventPrice = eventPrice; 
+}
+
 }

@@ -3,35 +3,33 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vendor_bookings")
-public class VendorBookingEntity {
+@Table(name = "event_bookings")
+public class EventBookingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
-    private Long vendorId;
-    private Long eventId;       // link event
+    private Long userId;     
+    private Long eventId;    // link to EventEntity
     private String eventName;
     private String eventDate;
-    private String notes;
+    private String location;
 
-    private double price;      // vendor booking price (required for payment)
+    private int guests;
 
-    private String status = "PENDING";
+    private double price;    // event price for payment
 
-    public VendorBookingEntity() {}
+    private String status = "PENDING"; // PENDING, CONFIRMED, CANCELLED
 
-    // getters & setters omitted for brevity — same style as other entities
+    public EventBookingEntity() {}
+
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
-
-    public Long getVendorId() { return vendorId; }
-    public void setVendorId(Long vendorId) { this.vendorId = vendorId; }
 
     public Long getEventId() { return eventId; }
     public void setEventId(Long eventId) { this.eventId = eventId; }
@@ -42,8 +40,11 @@ public class VendorBookingEntity {
     public String getEventDate() { return eventDate; }
     public void setEventDate(String eventDate) { this.eventDate = eventDate; }
 
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+
+    public int getGuests() { return guests; }
+    public void setGuests(int guests) { this.guests = guests; }
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
