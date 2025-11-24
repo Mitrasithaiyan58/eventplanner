@@ -1,4 +1,3 @@
-
 package com.example.demo.repository;
 
 import com.example.demo.entity.VendorBookingEntity;
@@ -10,7 +9,3 @@ public interface VendorBookingRepository extends JpaRepository<VendorBookingEnti
     List<VendorBookingEntity> findByUserId(Long userId);
     List<VendorBookingEntity> findByStatus(String status);
 }
-
-
-
-

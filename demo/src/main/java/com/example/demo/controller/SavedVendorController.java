@@ -10,7 +10,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/saved-vendors")
 @CrossOrigin(origins = "http://localhost:3000")
-public class SavedVendorController {
+public class SavedVendorController 
+{
 
     @Autowired
     private SavedVendorService savedVendorService;

@@ -11,27 +11,23 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;         // who made the payment
-    private Long eventId;        // which event
+    private Long userId;
+    private Long eventId;
     private double amount;
-    private String method;       // UPI, Card, NetBanking
-    private String status;       // SUCCESS, FAILED, PENDING
+    private String method;
+    private String status;
     private LocalDateTime paymentDate;
 
-    // Constructors
-    public PaymentEntity() {}
+    // 🔹 Razorpay Fields
+    private String orderId;     
+    private String paymentId;   
+    private String signature;
 
-    public PaymentEntity(Long userId, Long eventId, double amount, String method, String status, LocalDateTime paymentDate) {
-        this.userId = userId;
-        this.eventId = eventId;
-        this.amount = amount;
-        this.method = method;
-        this.status = status;
-        this.paymentDate = paymentDate;
-    }
+    public PaymentEntity() {}
 
     // Getters & Setters
     public Long getId() { return id; }
+
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
 
@@ -49,4 +45,13 @@ public class PaymentEntity {
 
     public LocalDateTime getPaymentDate() { return paymentDate; }
     public void setPaymentDate(LocalDateTime paymentDate) { this.paymentDate = paymentDate; }
+
+    public String getOrderId() { return orderId; }
+    public void setOrderId(String orderId) { this.orderId = orderId; }
+
+    public String getPaymentId() { return paymentId; }
+    public void setPaymentId(String paymentId) { this.paymentId = paymentId; }
+
+    public String getSignature() { return signature; }
+    public void setSignature(String signature) { this.signature = signature; }
 }
