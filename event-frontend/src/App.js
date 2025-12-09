@@ -38,6 +38,13 @@ import EventDetails from "./components/Auth/EventDetails";
 
 
 
+
+import EventNameAI from "./components/Auth/EventNameAI";
+
+import UserLayout from "./components/Auth/UserLayout";
+
+
+
 // Helper hook to get query params
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -226,9 +233,16 @@ function App() {
           element={eventManager ? <EventBookingsList /> : <EventLogin setEventManager={setEventManager} />}
         />
 
+<Route path="/ai-test" element={<EventNameAI />} />
+
+
+
+
+
         <Route
   path="/event-booking/:eventId"
   element={user ? <BookingForm user={user} /> : <UserLogin setUser={setUser} />}
+  
 />
 
       </Routes>

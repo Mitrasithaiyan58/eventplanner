@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/events")
 @CrossOrigin(origins = "*")
@@ -32,33 +31,27 @@ public class EventController {
         return eventService.createEvent(event);
     }
 
-    // @PutMapping("/{id}")
-    // public EventEntity updateEvent(@PathVariable Long id, @RequestBody EventEntity event) {
-    //     return eventService.updateEvent(id, event);
-    // }
-
-    @PutMapping("/{id}/setPrice")
-public EventEntity setEventPrice(@PathVariable Long id, @RequestParam Double price) {
-    return eventService.setEventPrice(id, price);
-}
-
-
     @DeleteMapping("/{id}")
     public String deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return "Event deleted successfully!";
     }
 
+    // ⭐ User Dashboard → My Events
     @GetMapping("/user/{userId}")
     public List<EventEntity> getEventsByUserId(@PathVariable Long userId) {
         return eventService.getEventsByUserId(userId);
     }
 
-    // ⭐ MISSING API ADDED NOW ⭐
-   
-    // Completed events endpoint for feedback
-    @GetMapping("/completed/{userId}")
-    public List<EventDTO> getCompletedEvents(@PathVariable Long userId) {
-        return eventService.getCompletedEventsByUserId(userId);
+    // ⭐ Manager Dashboard → My Events
+    @GetMapping("/admin/{adminId}")
+    public List<EventEntity> getEventsByAdminId(@PathVariable Long adminId) {
+        return eventService.getEventsByAdminId(adminId);
+    }
+
+    // ⭐ User Dashboard → Available Events
+    @GetMapping("/available")
+    public List<EventEntity> getAvailableEvents() {
+        return eventService.getAllAvailableEvents();
     }
 }

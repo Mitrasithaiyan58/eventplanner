@@ -24,11 +24,11 @@ const UserDashboard = ({ user }) => {
   const [showInquiry, setShowInquiry] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
 
-  // fetch events
+  // fetch available events (only manager-created)
   useEffect(() => {
     let mounted = true;
     axios
-      .get("/events")
+      .get("/events/available")
       .then((res) => {
         if (mounted) {
           setEvents(res.data || []);
@@ -36,7 +36,7 @@ const UserDashboard = ({ user }) => {
         }
       })
       .catch((err) => {
-        console.error("Error fetching events:", err);
+        console.error("Error fetching available events:", err);
         if (mounted) setLoading(false);
       });
     return () => (mounted = false);
@@ -109,6 +109,8 @@ const UserDashboard = ({ user }) => {
           <button onClick={() => navigate("/my-events")}><FaTasks /> My Events</button>
           <button onClick={() => navigate("/vendors")}>🛍 Vendors</button>
           <button onClick={() => navigate("/my-saved-vendors")}>💾 Saved Vendors</button>
+         
+
           <button onClick={() => navigate("/ai-suggestions")}>💡 AI Suggestions</button>
           <button onClick={() => navigate("/my-bookings")}><FaBook /> My Bookings</button>
           <button onClick={() => navigate("/user-inquiries")}><FaEnvelope /> My Inquiries</button>
@@ -190,6 +192,8 @@ const UserDashboard = ({ user }) => {
                       </div>
 
                       <button onClick={() => handleFeedbackClick(ev)} style={{ padding: "8px 12px", borderRadius: 6 }}>
+
+                        
                         ⭐ Give Feedback
                       </button>
                     </div>

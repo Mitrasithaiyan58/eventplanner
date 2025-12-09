@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../axiosConfig";
 import Swal from "sweetalert2";
 import "./AI.css";
 
@@ -37,9 +37,12 @@ const AISuggestions = () => {
     }
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://localhost:8080/ai/suggest?eventType=${eventType}&budget=${budget}&location=${location}`
-      );
+      const params = new URLSearchParams({
+        eventType,
+        budget,
+        location,
+      }).toString();
+      const response = await axios.get(`/ai/suggest?${params}`);
       setSuggestions(response.data);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
