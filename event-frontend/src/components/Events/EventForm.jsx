@@ -73,17 +73,13 @@ const [aiEventType, setAiEventType] = useState("");
   // ---------------------------------------------------------
   const handleSubmit = async () => {
     try {
-      const isManager = !!localStorage.getItem("eventManager");
-      const organizerField = isManager ? "adminOrganizer" : "userOrganizer";
-      const organizerValue = { id: user.id };
-
       if (editId) {
         await axios.put(`/events/${editId}`, {
           name,
           description,
           location: locationEvent,
           eventDateTime,
-          [organizerField]: organizerValue,
+          userOrganizer: { id: user.id },
         });
         setMessage("Event updated successfully!");
       } else {
@@ -92,7 +88,7 @@ const [aiEventType, setAiEventType] = useState("");
           description,
           location: locationEvent,
           eventDateTime,
-          [organizerField]: organizerValue,
+          userOrganizer: { id: user.id },
         });
         setMessage("Event created successfully!");
         setName("");
@@ -101,12 +97,7 @@ const [aiEventType, setAiEventType] = useState("");
         setEventDateTime("");
       }
 
-      // Navigate to appropriate dashboard
-      if (isManager) {
-        navigate("/event-dashboard");
-      } else {
-        navigate("/my-events");
-      }
+      navigate("/my-events");
     } catch (err) {
       console.error(err);
       setMessage(editId ? "Failed to update event." : "Failed to create event.");

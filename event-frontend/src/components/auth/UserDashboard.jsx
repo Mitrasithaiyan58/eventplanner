@@ -24,11 +24,11 @@ const UserDashboard = ({ user }) => {
   const [showInquiry, setShowInquiry] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
 
-  // fetch available events (only manager-created)
+  // fetch events
   useEffect(() => {
     let mounted = true;
     axios
-      .get("/events/available")
+      .get("/events")
       .then((res) => {
         if (mounted) {
           setEvents(res.data || []);
@@ -36,7 +36,7 @@ const UserDashboard = ({ user }) => {
         }
       })
       .catch((err) => {
-        console.error("Error fetching available events:", err);
+        console.error("Error fetching events:", err);
         if (mounted) setLoading(false);
       });
     return () => (mounted = false);
