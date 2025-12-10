@@ -55,7 +55,7 @@ const EventList = ({ user }) => {
 
   return (
     <div className="eventlist-wrapper">
-      <h2>📅 My Events</h2>
+      <h2>My Events</h2>
       {message && <p className="event-message">{message}</p>}
 
       {events.length === 0 ? (

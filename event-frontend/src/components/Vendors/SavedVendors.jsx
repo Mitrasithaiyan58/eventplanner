@@ -35,7 +35,7 @@ const SavedVendors = ({ user }) => {
 
   return (
     <div className="saved-vendors-container">
-      <h2>💾 My Saved Vendors</h2>
+      <h2> My Saved Vendors</h2>
 
       {savedVendors.length === 0 ? (
         <p className="no-vendors">You haven’t saved any vendors yet.</p>
@@ -52,7 +52,7 @@ const SavedVendors = ({ user }) => {
                 onClick={() => handleDelete(vendor.id)}
                 className="delete-btn"
               >
-                ❌ Remove
+                Remove
               </button>
             </div>
           ))}

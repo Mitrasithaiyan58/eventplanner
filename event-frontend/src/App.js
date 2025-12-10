@@ -1,11 +1,11 @@
 // App.js
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import axios from "./axiosConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// USER COMPONENTS
+// ================= USER COMPONENTS =================
 import UserLogin from "./components/Auth/UserLogin";
 import UserSignup from "./components/Auth/UserSignup";
 import UserDashboard from "./components/Auth/UserDashboard";
@@ -21,35 +21,32 @@ import AISuggestions from "./components/AI/AISuggestions";
 import VendorsPage from "./components/Auth/VendorsPage";
 import VendorBookingForm from "./components/Auth/EventBookingForm";
 
-// FEEDBACK FILES
-import FeedbackForm from "./components/Auth/FeedbackForm"; // Give Feedback
-import ManagerFeedback from "./components/Auth/ManagerFeedback"; // View Feedback
+// ================= FEEDBACK =================
+import FeedbackForm from "./components/Auth/FeedbackForm";
+import ManagerFeedback from "./components/Auth/ManagerFeedback";
 
-// EVENT MANAGER COMPONENTS
+// ================= EVENT MANAGER =================
 import EventLogin from "./components/Events/EventLogin";
 import EventDashboard from "./components/Events/EventDashboard";
 import EventList from "./components/Events/EventList";
 import EventForm from "./components/Events/EventForm";
 import EventBookingsList from "./components/Events/EventBookingsList";
 
-// EVENT DETAILS
+// ================= EVENT DETAILS =================
 import EventDetails from "./components/Auth/EventDetails";
 
-
-
-
-
+// ================= AI TEST =================
 import EventNameAI from "./components/Auth/EventNameAI";
 
+// ================= LAYOUT =================
 import UserLayout from "./components/Auth/UserLayout";
 
-
-
-// Helper hook to get query params
+// ================= HELPER HOOK =================
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+// ================= GIVE FEEDBACK WRAPPER =================
 function GiveFeedbackWrapper({ user }) {
   const query = useQuery();
   const vendorId = query.get("vendor");
@@ -57,7 +54,7 @@ function GiveFeedbackWrapper({ user }) {
 
   if (!vendorId || !eventId) {
     return (
-      <div style={{ padding: "20px" }}>
+      <div style={{ padding: "20px", color: "#fff" }}>
         <h2>Please select an event first to give feedback.</h2>
       </div>
     );
@@ -66,6 +63,7 @@ function GiveFeedbackWrapper({ user }) {
   return <FeedbackForm userId={user.id} eventId={eventId} />;
 }
 
+// ================= MAIN APP =================
 function App() {
   const [user, setUser] = useState(null);
   const [eventManager, setEventManager] = useState(null);
@@ -115,6 +113,7 @@ function App() {
     });
   }, [inquiries]);
 
+  // Handlers for popups
   const handleInquiryClick = (event) => {
     setSelectedEvent(event);
     setShowInquiry(true);
@@ -138,117 +137,71 @@ function App() {
       )}
 
       <Routes>
-        {/* USER LOGIN / SIGNUP */}
+        {/* ================= PUBLIC ROUTES ================= */}
         <Route path="/" element={<UserLogin setUser={setUser} />} />
         <Route path="/user-login" element={<UserLogin setUser={setUser} />} />
         <Route path="/user-signup" element={<UserSignup />} />
 
-        {/* USER DASHBOARD */}
+        {/* ================= PROTECTED USER ROUTES ================= */}
         <Route
-          path="/user-dashboard"
-          element={user ? <UserDashboard user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/user-profile"
-          element={user ? <UserProfile user={user} setUser={setUser} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/user-inquiries"
-          element={user ? <UserInquiries user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/inquiry-page"
-          element={user ? <InquiryPage user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/my-bookings"
-          element={user ? <MyBookings user={user} /> : <UserLogin setUser={setUser} />}
-        />
+          path="/"
+          element={user ? <UserLayout user={user} /> : <UserLogin setUser={setUser} />}
+        >
+          <Route path="user-dashboard" element={<UserDashboard user={user} />} />
+          <Route path="user-profile" element={<UserProfile user={user} setUser={setUser} />} />
+          <Route path="user-inquiries" element={<UserInquiries user={user} />} />
+          <Route path="inquiry-page" element={<InquiryPage user={user} />} />
+          <Route path="my-bookings" element={<MyBookings user={user} />} />
+          <Route path="give-feedback" element={<GiveFeedbackWrapper user={user} />} />
 
-        {/* FEEDBACK ROUTES */}
-        <Route
-          path="/give-feedback"
-          element={user ? <GiveFeedbackWrapper user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/view-feedback"
-          element={eventManager ? <ManagerFeedback /> : <EventLogin setEventManager={setEventManager} />}
-        />
+          {/* EVENT DETAILS */}
+          <Route path="event-details/:vendorId" element={<EventDetails user={user} />} />
 
-        {/* EVENT DETAILS */}
-        <Route
-          path="/event-details/:vendorId"
-          element={user ? <EventDetails user={user} /> : <UserLogin setUser={setUser} />}
-        />
-
-        {/* EVENTS */}
-        <Route
-          path="/create-event"
-          element={user ? <EventForm user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/my-events"
-          element={user ? <EventList user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/available-events"
-          element={
-            user ? (
+          {/* EVENTS */}
+          <Route path="create-event" element={<EventForm user={user} />} />
+          <Route path="my-events" element={<EventList user={user} />} />
+          <Route
+            path="available-events"
+            element={
               <AvailableEvents
                 user={user}
                 onInquiryClick={handleInquiryClick}
                 onBookingClick={handleBookingClick}
                 onFeedbackClick={(event) => setSelectedEvent(event)}
               />
+            }
+          />
+          <Route path="my-saved-vendors" element={<SavedVendors user={user} />} />
+          <Route path="ai-suggestions" element={<AISuggestions user={user} />} />
+          <Route path="vendors" element={<VendorsPage user={user} />} />
+          <Route path="book-vendor/:vendorId" element={<VendorBookingForm user={user} />} />
+          <Route path="event-booking/:eventId" element={<BookingForm user={user} />} />
+        </Route>
+
+        {/* ================= EVENT MANAGER ROUTES ================= */}
+        <Route path="/event-login" element={<EventLogin setEventManager={setEventManager} />} />
+        <Route
+          path="/event-dashboard"
+          element={
+            eventManager ? (
+              <EventDashboard eventManager={eventManager} />
             ) : (
-              <UserLogin setUser={setUser} />
+              <EventLogin setEventManager={setEventManager} />
             )
           }
         />
         <Route
-          path="/my-saved-vendors"
-          element={user ? <SavedVendors user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/ai-suggestions"
-          element={user ? <AISuggestions user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/vendors"
-          element={user ? <VendorsPage user={user} /> : <UserLogin setUser={setUser} />}
-        />
-        <Route
-          path="/book-vendor/:vendorId"
-          element={user ? <VendorBookingForm user={user} /> : <UserLogin setUser={setUser} />}
-        />
-
-        {/* EVENT MANAGER ROUTES */}
-        <Route path="/event-login" element={<EventLogin setEventManager={setEventManager} />} />
-        <Route
-          path="/event-dashboard"
-          element={eventManager ? <EventDashboard eventManager={eventManager} /> : <EventLogin setEventManager={setEventManager} />}
-        />
-        <Route
           path="/event-bookings"
-          element={eventManager ? <EventBookingsList /> : <EventLogin setEventManager={setEventManager} />}
+          element={
+            eventManager ? <EventBookingsList /> : <EventLogin setEventManager={setEventManager} />
+          }
         />
 
-<Route path="/ai-test" element={<EventNameAI />} />
-
-
-
-
-
-        <Route
-  path="/event-booking/:eventId"
-  element={user ? <BookingForm user={user} /> : <UserLogin setUser={setUser} />}
-  
-/>
-
+        {/* ================= AI TEST ================= */}
+        <Route path="/ai-test" element={<EventNameAI />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
-

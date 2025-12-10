@@ -1,131 +1,173 @@
+/* 🌄 Background Image + Gradient Overlay */
 .ai-container {
-  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
   min-height: 100vh;
   padding: 40px;
   text-align: center;
   font-family: "Poppins", sans-serif;
+  background: 
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    url("https://i.pinimg.com/736x/b2/f1/43/b2f1430af1e742f4515130ec59b7be60.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  backdrop-filter: blur(3px);
 }
 
+/* ⭐ Title */
 .ai-title {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  color: #333;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255,255,255,0.4);
   margin-bottom: 30px;
+  animation: fadeInDown 1s ease-in-out;
 }
 
+/* 🎯 Input Section */
 .ai-input-section {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 40px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .ai-input-section input {
   padding: 12px;
-  width: 250px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  width: 260px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .ai-input-section input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  border-color: #00eaff;
+  box-shadow: 0 0 10px #00eaff;
+  transform: scale(1.04);
 }
 
+/* ✨ Neon Primary Button */
 .ai-btn {
-  background: linear-gradient(90deg, #007bff, #00c6ff);
+  background: linear-gradient(90deg, #00d4ff, #007bff);
   border: none;
   color: white;
   padding: 12px 25px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 1rem;
-  transition: 0.3s;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 0 12px rgba(0,212,255,0.6);
 }
 
 .ai-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #0056d2, #0094ff);
+  transform: scale(1.07);
+  box-shadow: 0 0 18px rgba(0,212,255,0.9);
 }
 
+/* 🔍 Suggestions + Saved Vendors container */
 .ai-results {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 25px;
 }
 
+/* 🧊 Frosted Glass Vendor Card */
 .vendor-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px);
+  border-radius: 18px;
   padding: 20px;
-  width: 250px;
-  text-align: left;
-  transition: transform 0.3s ease;
+  width: 270px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  transition: 0.4s ease;
+  animation: fadeInUp 0.8s ease;
 }
 
 .vendor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
 }
 
+/* 🏷 Name */
 .vendor-card h3 {
+  color: #00eaff;
   margin-bottom: 10px;
-  color: #007bff;
+  text-shadow: 0 0 10px rgba(0,234,255,0.7);
 }
 
+/* ❌ No data message */
 .no-data {
-  color: #555;
+  color: #eee;
   font-style: italic;
 }
 
+/* 💾 Save Button */
 .save-btn {
   margin-top: 10px;
   background: linear-gradient(90deg, #22c55e, #16a34a);
   color: white;
   border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
+  width: 100%;
+  font-weight: 600;
   transition: 0.3s;
 }
 
 .save-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #16a34a, #15803d);
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(34,197,94,0.8);
 }
 
-.save-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-
-.saved-title {
-  font-size: 1.5rem;
-  color: #333;
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
-
+/* 🗑 Delete button */
 .delete-btn {
   margin-top: 10px;
   background: linear-gradient(90deg, #ef4444, #dc2626);
   color: white;
   border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
+  width: 100%;
+  font-weight: 600;
   transition: 0.3s;
 }
 
 .delete-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #dc2626, #b91c1c);
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(239,68,68,0.8);
+}
+
+.saved-title {
+  font-size: 1.8rem;
+  color: white;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.4);
+}
+
+/* 🎬 Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

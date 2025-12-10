@@ -427,3 +427,16 @@
     transform: translateY(0);
   }
 }
+
+/* Allow page scrolling */
+.event-page {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  padding: 30px 0;
+}
+
+/* Make sure the form is scrollable if long */
+.form-container {
+  max-height: none !important;
+}

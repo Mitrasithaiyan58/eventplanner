@@ -1,182 +1,176 @@
+/* ============================================
+   🌌 My Bookings Page – Premium Glass UI
+   Matches dark floral backgrounds you sent
+============================================ */
+
 .bookings-page {
-  background-color: #ffffff;
   min-height: 100vh;
-  padding: 40px 20px;
-  color: #222;
+  padding: 50px 30px;
   font-family: "Poppins", sans-serif;
+  
+  background-image: url("https://i.pinimg.com/1200x/42/cd/41/42cd41036cfb2681168266c91ac50a49.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* ⭐ FIX IMAGE ZOOMING */
+  background-attachment: fixed;
+
+  position: relative;
 }
 
-.bookings-title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 30px;
+
+/* Dark overlay for readability */
+.bookings-page::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+}
+
+.bookings-page * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================
+   🔥 Title
+============================ */
+h2 {
+  font-size: 2.6rem;
   text-align: center;
-  color: #111;
+  color: #ffdde6;
+  margin-bottom: 25px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  letter-spacing: 1px;
 }
 
-.loading-text {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #666;
-}
-
-.no-bookings {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.explore-btn {
-  margin-top: 10px;
-  background-color: #111;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s ease;
-}
-
-.explore-btn:hover {
-  background-color: #333;
-}
-
-/* --- Booking List --- */
-.booking-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 25px;
-  padding: 20px;
-}
-
-.booking-card {
-  background: #ecf4f4;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border-left: 6px solid transparent;
-}
-
-.booking-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-}
-
-/* --- Status Badge --- */
-.status-badge {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 18px;
-  font-size: 1rem;
-  border-radius: 25px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* ✅ Clear visible colors */
-.status-confirmed {
-  background-color: #e8f8ee; /* light green tint */
-  color: #067a32; /* dark green text */
-  border: 2px solid #0a9e45;
-}
-
-.status-rejected {
-  background-color: #fbeaea; /* light red tint */
-  color: #b80f0f; /* dark red text */
-  border: 2px solid #d91a1a;
-}
-
-.status-pending {
-  background-color: #fff7e5; /* light yellow tint */
-  color: #a06a00; /* brownish-yellow text */
-  border: 2px solid #d1a400;
-}
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .bookings-title {
-    font-size: 1.6rem;
-  }
-
-  .booking-card {
-    padding: 16px;
-  }
-}
-
-.status-badge {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 10px 24px;
-  font-size: 0.95rem;
-  font-weight: 800;
-  border-radius: 25px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-}
-
-/* ✅ Confirmed - bold green text on light green background */
-.status-confirmed {
-  background-color: #60d290;
-  color: #067a36;
-  border-color: #067a36;
-}
-
-/* ❌ Rejected - bold red text on light red background */
-.status-rejected {
-  background-color: #ce3030;
-  color: #b00020;
-  border-color: #b00020;
-}
-
-/* 🕓 Pending - bold gold text on light yellow background */
-.status-pending {
-  background-color: #fff7e6;
-  color: #b88000;
-  border-color: #b88000;
-}
-
-
-.booking-section {
-  margin-bottom: 2rem;
-}
-
-.booking-section h3 {
-  margin-bottom: 1rem;
-  color: #333;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 5px;
-}
-
-
-/* 🔹 Tabs */
+/* ============================
+   💫 Tabs
+============================ */
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+  margin-bottom: 35px;
+  gap: 20px;
 }
 
-.tab-btn {
-  padding: 10px 20px;
-  border: 2px solid #ccc;
-  background: #f9f9f9;
-  border-radius: 8px;
+.tabs button {
+  padding: 12px 25px;
+  font-size: 1.05rem;
   font-weight: 600;
+  border-radius: 12px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(10px);
+
   cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.tabs button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.tabs .active {
+  background: linear-gradient(135deg, #ff4f8b, #ffba42);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 5px 18px rgba(255, 141, 160, 0.6);
+}
+
+/* ============================
+   🧊 Booking Cards – Glass UI
+============================ */
+.booking-card {
+  width: 95%;
+  max-width: 500px;
+  margin: 15px auto;
+
+  background: rgba(255,255,255,0.18);
+  border-radius: 18px;
+  padding: 22px;
+  backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+  color: #fff;
+
   transition: all 0.3s ease;
 }
 
-.tab-btn:hover {
-  background: #f0f0f0;
+.booking-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
 }
 
-.tab-btn.active {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
+/* Title */
+.booking-card h3 {
+  font-size: 1.45rem;
+  margin-bottom: 12px;
+  color: #ffd6e5;
+}
+
+/* Details text */
+.booking-card p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #f7f7f7;
+}
+
+/* ============================
+   🟩🟧🟥 Status Badges
+============================ */
+.status-badge {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Confirmed */
+.status-confirmed {
+  background: rgba(0, 255, 150, 0.3);
+  color: #00ff9d;
+  border: 2px solid #00ff9d;
+}
+
+/* Rejected */
+.status-rejected {
+  background: rgba(255, 80, 80, 0.3);
+  color: #ff4f4f;
+  border: 2px solid #ff4f4f;
+}
+
+/* Pending */
+.status-pending {
+  background: rgba(255, 220, 100, 0.25);
+  color: #f8d26a;
+  border: 2px solid #f8d26a;
+}
+
+/* ============================
+   Responsive
+============================ */
+@media (max-width: 600px) {
+  h2 {
+    font-size: 2rem;
+  }
+
+  .tabs button {
+    font-size: 0.9rem;
+    padding: 10px 18px;
+  }
+
+  .booking-card {
+    padding: 18px;
+  }
 }

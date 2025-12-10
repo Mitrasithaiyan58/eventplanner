@@ -97,10 +97,10 @@ const VendorsPage = () => {
   return (
     <div className="vendors-page-wrapper">
       <div className="vendors-header">
-        <button className="back-btn" onClick={() => navigate("/dashboard")}>
+        <button className="back-btn" onClick={() => navigate("/user-dashboard")}>
           <FaArrowLeft /> Back
         </button>
-        <h1>🎯 Vendor Plans</h1>
+        <h1> Vendor Plans</h1>
       </div>
 
       {successMsg && <p className="success-message">{successMsg}</p>}

@@ -6,6 +6,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+   background-image: url("https://i.pinimg.com/736x/2d/5e/f4/2d5ef40232592c144a35c47aa144bc5b.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  position: relative;
 }
 
 .inquiry-container {
@@ -88,4 +95,109 @@
   color: #6b7280;
   font-size: 1.1rem;
   padding: 50px 0;
+}
+/* ============================================
+   🧊 Inquiry Cards – Glass Effect
+============================================ */
+.inquiry-list {
+  max-width: 900px;
+  margin: auto;
+}
+
+.inquiry-card {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 25px;
+
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.inquiry-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+}
+
+/* Event Name */
+.event-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+
+  color: #ffd6e5;
+}
+
+/* Question text */
+.inquiry-question {
+  font-size: 1rem;
+  margin: 8px 0;
+  color: #f4f4f4;
+}
+
+/* ============================================
+   🟣 Status Badges
+============================================ */
+.status-badge {
+  display: inline-block;
+  padding: 8px 18px;
+  margin-top: 12px;
+
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Replied */
+.status-replied {
+  background: rgba(80, 255, 160, 0.25);
+  border: 2px solid #00ff9d;
+  color: #00ff9d;
+}
+
+/* Pending */
+.status-pending {
+  background: rgba(255, 200, 100, 0.25);
+  border: 2px solid #ffcc66;
+  color: #ffdd88;
+}
+
+/* ============================================
+   💬 Reply Box
+============================================ */
+.inquiry-reply {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 14px 18px;
+  margin-top: 15px;
+
+  border-left: 4px solid #ff89b0;
+  border-radius: 12px;
+
+  color: #ffe5f1;
+  font-style: italic;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ============================================
+   📱 Responsive
+============================================ */
+@media (max-width: 600px) {
+  .inquiry-title {
+    font-size: 1.9rem;
+  }
+
+  .inquiry-card {
+    padding: 18px;
+  }
+
+  .event-name {
+    font-size: 1.2rem;
+  }
 }

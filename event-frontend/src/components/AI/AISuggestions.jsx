@@ -131,7 +131,7 @@ const AISuggestions = () => {
 
   return (
     <div className="ai-container">
-      <h1 className="ai-title">✨ AI Vendor Suggestions</h1>
+      <h1 className="ai-title"> AI Vendor Suggestions</h1>
 
       {/* 🔹 Suggestion Input Section */}
       <div className="ai-input-section">

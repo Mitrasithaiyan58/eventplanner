@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../../axiosConfig";
 import "../Auth/Auth.css";
+import "./EventForm.css";
 
 const EventForm = ({ user }) => {
   const navigate = useNavigate();

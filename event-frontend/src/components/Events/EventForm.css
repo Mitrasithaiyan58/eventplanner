@@ -1,0 +1,120 @@
+/* =====================================================
+   FULL SCREEN BACKGROUND FOR CREATE EVENT
+===================================================== */
+.create-event-background {
+  min-height: 100vh;
+  padding: 50px 20px;
+
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background-size: cover;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* =====================================================
+   GLASS CARD CONTAINER
+===================================================== */
+.create-event-container {
+  width: 100%;
+  max-width: 500px;
+
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================================================
+   HEADINGS
+===================================================== */
+.create-event-container h2 {
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+/* =====================================================
+   INPUT FIELDS
+===================================================== */
+.create-event-container input,
+.create-event-container select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+
+  border: none;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  color: #333;
+
+  outline: none;
+  transition: 0.3s;
+}
+
+.create-event-container input:focus,
+.create-event-container select:focus {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.6);
+}
+
+/* =====================================================
+   AI SUGGEST BUTTON
+===================================================== */
+.create-event-container button {
+  width: 100%;
+  margin-top: 18px;
+
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: none;
+
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s;
+
+  background: #6a11cb;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+.create-event-container button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* =====================================================
+   AI SUGGESTIONS BLOCK
+===================================================== */
+.ai-suggestion-chip {
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ai-suggestion-chip:hover {
+  background: #fff;
+  transform: scale(1.05);
+}
